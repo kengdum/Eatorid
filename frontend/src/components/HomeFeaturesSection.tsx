@@ -2,8 +2,11 @@ import React from "react";
 import { Button, List, Center, Grid, Image, Stack, Text, ThemeIcon } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
 import hero from "../assets/hero.gif";
+import { useUI } from "../contexts/UIContext";
 
 const HomeFeaturesSection = () => {
+  const { setShowModal } = useUI();
+
   return (
     <Center h={"100%"} py={100}>
       <Grid m={0}>
@@ -39,7 +42,7 @@ const HomeFeaturesSection = () => {
                 </List.Item>
               </List>
 
-              <Button size={"md"} w={250}>
+              <Button w={250} onClick={() => setShowModal("signup")}>
                 Join
               </Button>
             </Stack>

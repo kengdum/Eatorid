@@ -5,15 +5,13 @@ interface UIProviderProps {
 }
 
 interface UIContextInterface {
-  showSignInModal: boolean;
-  showSignUpModal: boolean;
-  toggleSignInModal: (show: boolean | null) => void;
+  showModal: "signin" | "signup" | "null";
+  setShowModal: (val: "signin" | "signup" | "null") => void;
 }
 
 const defaultState = {
-  showSignInModal: true,
-  showSignUpModal: false,
-  toggleSignInModal: () => {},
+  showModal: "null",
+  setShowModal: () => {},
 } as UIContextInterface;
 
 const UIContext = createContext<UIContextInterface>(defaultState);
@@ -23,17 +21,11 @@ export function useUI() {
 }
 
 export function UIProvider({ children }: UIProviderProps) {
-  const [showSignInModal, setShowSignInModal] = useState(defaultState.showSignInModal);
-  const [showSignUpModal, setShowSignUpModal] = useState(defaultState.showSignUpModal);
-
-  const toggleSignInModal = (show: boolean | null = null): void => {
-    setShowSignInModal(curr => (show ? show : !curr));
-  };
+  const [showModal, setShowModal] = useState(defaultState.showModal);
 
   const value: UIContextInterface = {
-    showSignInModal,
-    showSignUpModal,
-    toggleSignInModal,
+    showModal,
+    setShowModal,
   };
 
   return <UIContext.Provider value={value}>{children}</UIContext.Provider>;

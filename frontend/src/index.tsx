@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
 import { UIProvider } from "./contexts/UIContext";
 import { RestaurantsProvider } from "./contexts/RestaurantsContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
@@ -20,9 +21,11 @@ root.render(
         withNormalizeCSS
       >
         <UIProvider>
-          <RestaurantsProvider>
-            <App />
-          </RestaurantsProvider>
+          <AuthProvider>
+            <RestaurantsProvider>
+              <App />
+            </RestaurantsProvider>
+          </AuthProvider>
         </UIProvider>
       </MantineProvider>
     </BrowserRouter>

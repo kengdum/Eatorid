@@ -5,14 +5,30 @@ import Home from "../pages/Home";
 import { Modal } from "@mantine/core";
 import { useUI } from "../contexts/UIContext";
 import SignInModal from "./SignInModal";
+import SignUpModal from "./SignUpModal";
 
 function App() {
-  const { showSignInModal, toggleSignInModal } = useUI();
+  const { showModal, setShowModal } = useUI();
+
+  const showModalMap = {
+    signin: <SignInModal />,
+    signup: <SignUpModal />,
+    null: null,
+  };
 
   return (
     <div>
-      <Modal opened={showSignInModal} onClose={() => toggleSignInModal(false)} centered>
-        <SignInModal />
+      <Modal
+        style={{ position: "relative", zIndex: 1000 }}
+        lockScroll={false}
+        padding={0}
+        opened={showModal !== "null"}
+        onClose={() => setShowModal("null")}
+        centered
+        withCloseButton={false}
+        closeOnClickOutside={false}
+      >
+        {showModalMap[showModal]}
       </Modal>
 
       <Routes>

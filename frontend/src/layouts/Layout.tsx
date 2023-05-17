@@ -6,7 +6,7 @@ import Logo from "../components/Logo";
 import { useUI } from "../contexts/UIContext";
 
 export function Layout() {
-  const { toggleSignInModal } = useUI();
+  const { setShowModal } = useUI();
 
   return (
     <AppShell
@@ -15,7 +15,7 @@ export function Layout() {
           <Flex align={"center"} justify={"space-between"}>
             <Logo />
 
-            <Button className="text" onClick={() => toggleSignInModal(true)}>
+            <Button className="text" onClick={() => setShowModal("signin")}>
               Sign in
             </Button>
           </Flex>
@@ -27,7 +27,9 @@ export function Layout() {
     >
       <Container h={"100%"} size={"80%"}>
         <Stack h={"100%"} spacing={"sm"}>
-          <Outlet />
+          <Container size={"100%"} w={"100%"} style={{ flexGrow: 1 }}>
+            <Outlet />
+          </Container>
           <Footer />
         </Stack>
       </Container>
