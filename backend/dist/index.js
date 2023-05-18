@@ -23,7 +23,7 @@ app.use((err, req, res, next) => {
         status: err.status || 500,
         message: err.message,
     };
-    res.status(error.status).send({ error });
+    res.status(error.status).send(error);
 });
 mongoose_1.default
     .connect(process.env.DATABASE_URL)

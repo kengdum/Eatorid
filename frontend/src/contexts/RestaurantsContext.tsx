@@ -12,7 +12,6 @@ interface RestaurantsContextInterface {
 const defaultState = {
   restaurants: [
     {
-      id: "1",
       name: "Babajee Res",
       schedule: [
         {
@@ -97,7 +96,6 @@ const defaultState = {
       deliveryMaxDistance: 5000,
       deliveryPrice: 3.99,
       extraDeliveryFee: 2.99,
-      menu: [],
     },
     {
       id: "2",

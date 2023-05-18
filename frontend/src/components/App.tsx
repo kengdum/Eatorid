@@ -2,13 +2,15 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "../layouts/Layout";
 import Home from "../pages/Home";
-import { Modal } from "@mantine/core";
+import { LoadingOverlay, Modal } from "@mantine/core";
 import { useUI } from "../contexts/UIContext";
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
+import { useAuth } from "../contexts/AuthContext";
 
 function App() {
   const { showModal, setShowModal } = useUI();
+  const { initialLoading } = useAuth();
 
   const showModalMap = {
     signin: <SignInModal />,
@@ -30,6 +32,8 @@ function App() {
       >
         {showModalMap[showModal]}
       </Modal>
+
+      <LoadingOverlay visible={initialLoading} overlayBlur={5} pos={"fixed"} />
 
       <Routes>
         <Route path="/" element={<Layout />}>

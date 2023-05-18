@@ -1,7 +1,5 @@
-import { useState } from "react";
 import {
   Button,
-  ActionIcon,
   Anchor,
   Container,
   Divider,
@@ -12,6 +10,7 @@ import {
   Stack,
   PasswordInput,
   Notification,
+  CloseButton,
 } from "@mantine/core";
 import { isEmail, hasLength } from "@mantine/form";
 import { useForm } from "@mantine/form";
@@ -26,10 +25,7 @@ interface FormValues {
 
 const SignInModal = () => {
   const { setShowModal } = useUI();
-  const { signIn } = useAuth();
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { signIn, loading, error, setError } = useAuth();
 
   const form = useForm<FormValues>({
     initialValues: {
@@ -45,17 +41,16 @@ const SignInModal = () => {
 
   const handleSubmit = async (values: FormValues) => {
     try {
-      setLoading(true);
-      setError("");
-
-      const { email, password } = values;
-
-      await signIn(email, password);
-    } catch (err: any) {
-      setError(err.response.data.error.message);
-    } finally {
-      setLoading(false);
+      await signIn(values.email, values.password);
+      setShowModal("null");
+    } catch (err) {
+      console.log("dpok");
     }
+  };
+
+  const handleClose = () => {
+    setError("");
+    setShowModal("null");
   };
 
   return (
@@ -63,9 +58,7 @@ const SignInModal = () => {
       <Container p={25}>
         <Flex align={"center"} justify={"space-between"}>
           <Title>Sign in</Title>
-          <ActionIcon size="lg" onClick={() => setShowModal("null")}>
-            <IconX size={"100%"} />
-          </ActionIcon>
+          <CloseButton title="Close sign in" size={"lg"} onClick={handleClose} />
         </Flex>
       </Container>
 
@@ -74,9 +67,8 @@ const SignInModal = () => {
       <Container p={25}>
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack>
-            <TextInput label="Email" {...form.getInputProps("email")} withAsterisk />
+            <TextInput data-autofocus label="Email" {...form.getInputProps("email")} withAsterisk />
             <PasswordInput label="Password" {...form.getInputProps("password")} withAsterisk />
-
             {error !== "" && (
               <Notification icon={<IconX />} title="Sign in failed" color="red" withCloseButton={false}>
                 {error}
@@ -84,7 +76,7 @@ const SignInModal = () => {
             )}
 
             <Button loading={loading} mt={30} type="submit">
-              Sign up
+              Sign in
             </Button>
           </Stack>
         </form>

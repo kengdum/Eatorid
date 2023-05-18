@@ -41,10 +41,6 @@ const HomeFeaturesSection = () => {
                   tracking. From preparation to delivery, know exactly when your food will arrive at your doorstep.
                 </List.Item>
               </List>
-
-              <Button w={250} onClick={() => setShowModal("signup")}>
-                Join
-              </Button>
             </Stack>
           </Center>
         </Grid.Col>

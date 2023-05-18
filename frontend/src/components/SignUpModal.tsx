@@ -1,7 +1,5 @@
-import { useState } from "react";
 import {
   Button,
-  ActionIcon,
   Anchor,
   Container,
   Divider,
@@ -12,11 +10,10 @@ import {
   Stack,
   PasswordInput,
   Notification,
+  CloseButton,
 } from "@mantine/core";
-import { isEmail, isNotEmpty, hasLength, matchesField } from "@mantine/form";
+import { isEmail, hasLength, matchesField } from "@mantine/form";
 import { useForm } from "@mantine/form";
-import React from "react";
-import { Link } from "react-router-dom";
 import { IconX } from "@tabler/icons-react";
 import { useUI } from "../contexts/UIContext";
 import { useAuth } from "../contexts/AuthContext";
@@ -29,10 +26,7 @@ interface FormValues {
 
 const SignUpModal = () => {
   const { setShowModal } = useUI();
-  const { signUp } = useAuth();
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { signUp, setError, loading, error } = useAuth();
 
   const form = useForm({
     initialValues: {
@@ -51,18 +45,12 @@ const SignUpModal = () => {
   });
 
   const handleSubmit = async (values: FormValues) => {
-    try {
-      setLoading(true);
-      setError("");
+    await signUp(values.email, values.name, values.password);
+  };
 
-      const { email, name, password } = values;
-
-      await signUp(email, name, password);
-    } catch (err: any) {
-      setError(err.response.data.error.message);
-    } finally {
-      setLoading(false);
-    }
+  const handleClose = () => {
+    setError("");
+    setShowModal("null");
   };
 
   return (
@@ -70,9 +58,7 @@ const SignUpModal = () => {
       <Container p={25}>
         <Flex align={"center"} justify={"space-between"}>
           <Title>Sign up</Title>
-          <ActionIcon size="lg" onClick={() => setShowModal("null")}>
-            <IconX size={"100%"} />
-          </ActionIcon>
+          <CloseButton title="Close sign in" size={"lg"} onClick={handleClose} />
         </Flex>
       </Container>
 
@@ -81,7 +67,7 @@ const SignUpModal = () => {
       <Container p={25}>
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack>
-            <TextInput label="Name" {...form.getInputProps("name")} withAsterisk />
+            <TextInput data-autofocus label="Name" {...form.getInputProps("name")} withAsterisk />
             <TextInput label="Email" {...form.getInputProps("email")} withAsterisk />
             <PasswordInput label="Password" {...form.getInputProps("password")} withAsterisk />
             <PasswordInput label="Confirm password" {...form.getInputProps("confirmPassword")} withAsterisk />

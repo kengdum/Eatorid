@@ -13,7 +13,7 @@ const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
     <UnstyledButton w={"100%"} onClick={() => alert(restaurant.id)}>
       <Card withBorder padding="lg">
         <Card.Section style={{ position: "relative" }}>
-          <Image className="restaurant-card-image" src={img} alt="Restaurant image" height="200" />
+          <Image className="restaurant-card-image" src={img} alt="Restaurant image" height={"150px"} />
           <Title className="restaurant-card-title">{restaurant.name}</Title>
         </Card.Section>
 

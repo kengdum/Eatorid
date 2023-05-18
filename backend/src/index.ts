@@ -23,7 +23,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     message: err.message,
   };
 
-  res.status(error.status).send({ error });
+  res.status(error.status).send(error);
 });
 
 mongoose
