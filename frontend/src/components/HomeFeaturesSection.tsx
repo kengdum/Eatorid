@@ -33,7 +33,7 @@ const HomeFeaturesSection = () => {
                   taps.
                 </List.Item>
                 <List.Item>
-                  <b>NReal-time order tracking</b> – Stay updated on the status of your delivery with live order
+                  <b>Real-time order tracking</b> – Stay updated on the status of your delivery with live order
                   tracking. From preparation to delivery, know exactly when your food will arrive at your doorstep.
                 </List.Item>
               </List>

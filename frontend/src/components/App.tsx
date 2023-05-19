@@ -7,6 +7,7 @@ import { useUI } from "../contexts/UIContext";
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
 import { useAuth } from "../contexts/AuthContext";
+import Restaurants from "../pages/Restaurants";
 
 function App() {
   const { showModal, setShowModal } = useUI();
@@ -38,7 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/restaurants" element={"Restaurants"} />
+          <Route path="/restaurants" element={<Restaurants />} />
           <Route path="*" element={"Not found"} />
         </Route>
       </Routes>

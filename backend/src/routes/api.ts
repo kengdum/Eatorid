@@ -1,9 +1,9 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
+import RestaurantsController from "../controllers/RestaurantsController";
 
 const router: Router = Router();
 
-router.get("/", (req: Request, res: Response) => {
-  res.send("api route");
-});
+router.get("/featured-restaurants", RestaurantsController.getFeaturedRestaurants);
+router.get("/restaurants", RestaurantsController.getRestaurants);
 
 export default router;

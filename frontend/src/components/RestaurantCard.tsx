@@ -1,16 +1,16 @@
 import { Card, Stack, Title, Flex, Badge, Image, UnstyledButton, Group } from "@mantine/core";
-import { Restaurant } from "../../../interfaces/Restaurant";
+import { RestaurantInterface } from "../../../interfaces/Restaurant";
 import React from "react";
 import { IconMotorbike, IconCoins } from "@tabler/icons-react";
 import img from "../assets/1_png.png";
 
 interface RestaurantCardProps {
-  restaurant: Restaurant;
+  restaurant: RestaurantInterface;
 }
 
 const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
   return (
-    <UnstyledButton w={"100%"} onClick={() => alert(restaurant.id)}>
+    <UnstyledButton w={"100%"} onClick={() => alert(restaurant.name)}>
       <Card withBorder p="sm">
         <Card.Section style={{ position: "relative" }}>
           <Image className="restaurant-card-image" src={img} alt="Restaurant image" height={"150px"} />

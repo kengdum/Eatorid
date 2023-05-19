@@ -7,6 +7,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import httpErrors from "http-errors";
 import routes from "./routes";
+import { seedDatabase } from "./database_seeding";
 
 const PORT = process.env.PORT || 8000;
 const app: Express = express();
@@ -28,6 +29,9 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
 mongoose
   .connect(process.env.DATABASE_URL!)
+  .then(() => {
+    return seedDatabase();
+  })
   .then(() => {
     app.listen(PORT, () => {
       console.log("Connected to MongoDB");

@@ -10,6 +10,7 @@ const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const http_errors_1 = __importDefault(require("http-errors"));
 const routes_1 = __importDefault(require("./routes"));
+const database_seeding_1 = require("./database_seeding");
 const PORT = process.env.PORT || 8000;
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -27,6 +28,9 @@ app.use((err, req, res, next) => {
 });
 mongoose_1.default
     .connect(process.env.DATABASE_URL)
+    .then(() => {
+    return (0, database_seeding_1.seedDatabase)();
+})
     .then(() => {
     app.listen(PORT, () => {
         console.log("Connected to MongoDB");

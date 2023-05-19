@@ -1,24 +1,15 @@
 export interface Schedule {
-  open: {
-    h: number;
-    m: number;
-  };
-  close: {
-    h: number;
-    m: number;
-  };
-  closed: boolean;
+  opening: string | null;
+  closing: string | null;
 }
 
-export interface Restaurant {
-  id: string;
+export interface RestaurantInterface {
   name: string;
   schedule: Schedule[];
   minimumOrder: number;
   deliveryMaxDistance: number;
   deliveryPrice: number;
   extraDeliveryFee: number;
-  menu: Menu[];
 }
 
 export interface Menu {

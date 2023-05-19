@@ -1,11 +1,11 @@
 import React from "react";
 import { Button, Flex, Grid, Stack, Title } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { useRestaurants } from "../contexts/RestaurantsContext";
 import RestaurantCard from "./RestaurantCard";
+import { useRestaurants } from "../contexts/RestaurantsContext";
 
 const HomeRestaurantsSection = () => {
-  const { restaurants } = useRestaurants();
+  const { featuredRestaurants } = useRestaurants();
 
   return (
     <Stack>
@@ -17,8 +17,8 @@ const HomeRestaurantsSection = () => {
       </Flex>
 
       <Grid>
-        {restaurants.map(item => (
-          <Grid.Col key={item.id} xs={6} sm={6} md={3} lg={3}>
+        {featuredRestaurants.map(item => (
+          <Grid.Col key={item._id} xs={6} sm={6} md={3} lg={3}>
             <RestaurantCard restaurant={item} />
           </Grid.Col>
         ))}
