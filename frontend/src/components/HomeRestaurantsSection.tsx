@@ -8,7 +8,7 @@ const HomeRestaurantsSection = () => {
   const { restaurants } = useRestaurants();
 
   return (
-    <Stack py={100}>
+    <Stack>
       <Flex align={"center"} justify={"space-between"}>
         <Title>Restaurants</Title>
         <Button component={Link} to="/restaurants" variant="subtle">
@@ -18,7 +18,7 @@ const HomeRestaurantsSection = () => {
 
       <Grid>
         {restaurants.map(item => (
-          <Grid.Col key={item.id} span={3}>
+          <Grid.Col key={item.id} xs={6} sm={6} md={3} lg={3}>
             <RestaurantCard restaurant={item} />
           </Grid.Col>
         ))}

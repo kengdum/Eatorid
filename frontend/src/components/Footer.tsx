@@ -8,17 +8,19 @@ const Footer = () => {
     <Flex justify={"space-between"} align={"center"} py={10}>
       <Logo width={80} />
 
-      <Text size={"sm"}>Delivering since 2023</Text>
+      <Text ta={"center"} size={"xs"}>
+        Delivering since 2023
+      </Text>
 
       <Group spacing={0} noWrap>
-        <ActionIcon size="lg">
-          <IconBrandTwitter size="1.05rem" stroke={1.5} />
+        <ActionIcon component="a" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" size={40}>
+          <IconBrandTwitter size="1.35rem" stroke={1.5} />
         </ActionIcon>
-        <ActionIcon size="lg">
-          <IconBrandYoutube size="1.05rem" stroke={1.5} />
+        <ActionIcon component="a" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" size={40}>
+          <IconBrandYoutube size="1.35rem" stroke={1.5} />
         </ActionIcon>
-        <ActionIcon size="lg">
-          <IconBrandInstagram size="1.05rem" stroke={1.5} />
+        <ActionIcon component="a" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" size={40}>
+          <IconBrandInstagram size="1.35rem" stroke={1.5} />
         </ActionIcon>
       </Group>
     </Flex>

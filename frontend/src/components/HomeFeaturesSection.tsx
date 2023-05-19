@@ -1,18 +1,14 @@
-import React from "react";
-import { Button, List, Center, Grid, Image, Stack, Text, ThemeIcon } from "@mantine/core";
+import { List, Center, Grid, Image, Stack, Text, ThemeIcon } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
 import hero from "../assets/hero.gif";
-import { useUI } from "../contexts/UIContext";
 
 const HomeFeaturesSection = () => {
-  const { setShowModal } = useUI();
-
   return (
-    <Center h={"100%"} py={100}>
-      <Grid m={0}>
-        <Grid.Col span={"auto"}>
+    <Center h={"100%"} py={"5%"}>
+      <Grid grow>
+        <Grid.Col sm={6} lg={4}>
           <Center h={"100%"}>
-            <Stack spacing={50}>
+            <Stack spacing={30}>
               <Text fz={18}>
                 Delicious meals delivered to your doorstep. Order from a wide selection of restaurants and enjoy
                 convenient and hassle-free food delivery.
@@ -45,9 +41,9 @@ const HomeFeaturesSection = () => {
           </Center>
         </Grid.Col>
 
-        <Grid.Col span={"auto"}>
+        <Grid.Col p={"5%"} sm={3} lg={2}>
           <Center h={"100%"}>
-            <Image alt="Hero" width={"70%"} src={hero} withPlaceholder />
+            <Image alt="Hero" width={"100%"} maw={"400px"} src={hero} withPlaceholder />
           </Center>
         </Grid.Col>
       </Grid>

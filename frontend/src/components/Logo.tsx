@@ -10,7 +10,7 @@ interface LogoProps {
 const Logo = ({ width }: LogoProps) => {
   return (
     <Link to="/">
-      <Image width={width || 120} src={logo} alt="Logo" />
+      <Image width={width || 100} src={logo} alt="Logo" />
     </Link>
   );
 };

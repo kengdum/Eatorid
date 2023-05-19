@@ -267,7 +267,7 @@ const defaultState = {
           closed: true,
         },
       ],
-      minimumOrder: 25,
+      minimumOrder: 0,
       deliveryMaxDistance: 5000,
       deliveryPrice: 0,
       extraDeliveryFee: 2.99,
