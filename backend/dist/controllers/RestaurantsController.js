@@ -37,13 +37,11 @@ class RestaurantsController {
                 const query = req.query.q || "";
                 const limit = 12;
                 const skip = (page - 1) * limit;
-                console.log("getRestaurants");
-                console.log(page, query);
                 const totalCount = yield Restaurant_1.default.countDocuments({ name: { $regex: query, $options: "i" } });
                 const restaurants = yield Restaurant_1.default.find({ name: { $regex: query, $options: "i" } })
                     .skip(skip)
                     .limit(limit);
-                res.send({ restaurants, total: totalCount });
+                res.send({ restaurants, total: totalCount, nextPage: page * limit < totalCount ? page + 1 : undefined });
             }
             catch (err) {
                 next(err);

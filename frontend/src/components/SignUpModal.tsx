@@ -78,7 +78,7 @@ const SignUpModal = () => {
               </Notification>
             )}
 
-            <Button loading={loading} mt={30} type="submit">
+            <Button color="pink" loading={loading} mt={30} type="submit">
               Sign up
             </Button>
           </Stack>

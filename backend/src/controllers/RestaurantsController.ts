@@ -29,15 +29,12 @@ class RestaurantsController {
       const limit = 12;
       const skip = (page - 1) * limit;
 
-      console.log("getRestaurants");
-      console.log(page, query);
-
       const totalCount = await Restaurant.countDocuments({ name: { $regex: query, $options: "i" } });
       const restaurants = await Restaurant.find({ name: { $regex: query, $options: "i" } })
         .skip(skip)
         .limit(limit);
 
-      res.send({ restaurants, total: totalCount });
+      res.send({ restaurants, total: totalCount, nextPage: page * limit < totalCount ? page + 1 : undefined });
     } catch (err) {
       next(err);
     }

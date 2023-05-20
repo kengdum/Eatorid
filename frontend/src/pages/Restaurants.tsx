@@ -1,78 +1,71 @@
-import React, { useRef, useCallback } from "react";
-import RestaurantsList from "../components/RestaurantsList";
-import { Stack, TextInput, Text, Grid, Affix, Transition, Button, rem, CloseButton } from "@mantine/core";
-import { IconSearch, IconArrowUp } from "@tabler/icons-react";
-import { useWindowScroll } from "@mantine/hooks";
-import { useRestaurants } from "../contexts/RestaurantsContext";
+import React from "react";
+import { Stack, Flex, TextInput, Grid, Button } from "@mantine/core";
+import { IconSearch } from "@tabler/icons-react";
+
 import RestaurantCard from "../components/RestaurantCard";
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const Restaurants = () => {
-  const [scroll, scrollTo] = useWindowScroll();
-  const { restaurants, loading, error, hasMore, query, pageNumber, handleSearch, setPageNumber } = useRestaurants();
+  const { status, error, data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
+    queryKey: ["restaurants"],
+    getNextPageParam: (prevData: any) => prevData.nextPage,
+    queryFn: ({ pageParam = 0 }) => getRestaurantsPaginated(pageParam),
+  });
 
-  const observer: React.MutableRefObject<IntersectionObserver | null> = useRef(null);
-  const lastRestaurantRef = useCallback(
-    (node: HTMLDivElement) => {
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
+  function getRestaurantsPaginated(page: number) {
+    return axios
+      .get("http://localhost:8000/api/restaurants", {
+        params: { q: "", page },
+      })
+      .then(res => res.data);
+  }
 
-      observer.current = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting && hasMore) {
-          console.log("Visible");
-          setPageNumber(prev => prev + 1);
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [loading, hasMore]
-  );
+  if (status === "loading") return <h1>Loading...</h1>;
+  if (status === "error") return <h1>{JSON.stringify(error, null, 2)}</h1>;
 
   return (
-    <Stack pos={"relative"}>
+    <Stack py={30} pos={"relative"} spacing={50}>
       <TextInput
         mx={"auto"}
         w={"100%"}
         maw={"400px"}
-        value={query}
-        onChange={e => handleSearch(e.currentTarget.value)}
         placeholder="Search for restaurants"
         icon={<IconSearch size="1rem" />}
-        rightSection={query !== "" ? <CloseButton onClick={e => handleSearch("")} /> : null}
+        // rightSection={query !== "" ? <CloseButton onClick={handleSearch} /> : null}
       />
-      {/* <RestaurantsList /> */}
 
-      <Grid>
-        {restaurants.map((item, index) => {
-          if (restaurants.length === index + 1) {
-            return (
-              <Grid.Col ref={lastRestaurantRef} key={item._id} xs={6} sm={6} md={3} lg={3}>
-                <RestaurantCard restaurant={item} />
-              </Grid.Col>
-            );
-          } else {
-            return (
-              <Grid.Col key={item._id} xs={6} sm={6} md={3} lg={3}>
-                <RestaurantCard restaurant={item} />
-              </Grid.Col>
-            );
-          }
-        })}
-      </Grid>
+      <Flex>
+        <div>
+          <Grid gutter={"3%"}>
+            {data.pages
+              .map(x => x.restaurants)
+              .flat()
+              .map((item: any, index: number) => {
+                return (
+                  <Grid.Col key={item._id} xs={6} sm={4} md={4} lg={3}>
+                    <RestaurantCard restaurant={item} />
+                  </Grid.Col>
+                );
+              })}
+          </Grid>
+        </div>
+      </Flex>
 
-      {loading && "Loading..."}
-      {error && "Error!"}
-
-      <Affix position={{ bottom: rem(20), right: rem(20) }}>
-        <Transition transition="slide-up" mounted={scroll.y > 0}>
-          {transitionStyles => (
-            <Button leftIcon={<IconArrowUp size="1rem" />} style={transitionStyles} onClick={() => scrollTo({ y: 0 })}>
-              Scroll to top
-            </Button>
-          )}
-        </Transition>
-      </Affix>
+      {hasNextPage && (
+        <Button
+          className="custom-button"
+          loading={isFetchingNextPage}
+          color="rgb(216,9,47)"
+          w={"200px"}
+          mx={"auto"}
+          onClick={() => fetchNextPage()}
+        >
+          Load more
+        </Button>
+      )}
     </Stack>
   );
 };
 
-export default Restaurants;
+export default React.memo(Restaurants);

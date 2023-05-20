@@ -1,4 +1,4 @@
-import axios, { Canceler } from "axios";
+import axios, { CancelTokenSource, Canceler } from "axios";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { useDebouncedValue } from "@mantine/hooks";
 
@@ -14,8 +14,12 @@ interface RestaurantsContextInterface {
   error: boolean;
   restaurants: any[];
   hasMore: boolean;
+  cancelTokenSource: CancelTokenSource | null;
   handleSearch: (val: string) => void;
   setPageNumber: React.Dispatch<React.SetStateAction<number>>;
+  getFeaturedRestaurants: () => void;
+  setFeaturedRestaurants: React.Dispatch<React.SetStateAction<any[]>>;
+  getRestaurants: () => void;
 }
 
 const defaultState = {
@@ -26,8 +30,12 @@ const defaultState = {
   error: false,
   restaurants: [],
   hasMore: false,
+  cancelTokenSource: null,
   handleSearch: () => {},
   setPageNumber: () => {},
+  getFeaturedRestaurants: () => {},
+  setFeaturedRestaurants: () => {},
+  getRestaurants: () => {},
 } as RestaurantsContextInterface;
 
 const RestaurantsContext = createContext<RestaurantsContextInterface>(defaultState);
@@ -47,54 +55,99 @@ export function RestaurantsProvider({ children }: RestaurantsProviderProps) {
   const [restaurants, setRestaurants] = useState<any[]>(defaultState.restaurants);
   const [hasMore, setHasMore] = useState(defaultState.hasMore);
 
-  useEffect(() => {
-    getFeaturedRestaurants();
-    setPageNumber(1);
-    console.log("get featured res");
-  }, []);
+  const [cancelTokenSource, setCancelTokenSource] = useState<CancelTokenSource | null>(null);
 
   useEffect(() => {
-    setRestaurants([]);
+    console.log("running useEffect for debouncedQuery");
+    // setRestaurants([]);
   }, [debouncedQuery]);
 
+  // useEffect(() => {
+  //   let cancel: Canceler;
+
+  //   console.log("hello world");
+
+  //   setLoading(true);
+  //   setError(false);
+
+  //   axios({
+  //     method: "GET",
+  //     url: "http://localhost:8000/api/restaurants",
+  //     params: { q: debouncedQuery, page: pageNumber },
+  //     cancelToken: new axios.CancelToken(c => (cancel = c)),
+  //   })
+  //     .then(res => {
+  //       setRestaurants(prev => [...prev, ...res.data.restaurants]);
+  //       setHasMore(restaurants.length + res.data.restaurants.length < res.data.total);
+  //     })
+  //     .catch(err => {
+  //       if (axios.isCancel(err)) return;
+  //       console.log(err);
+  //       setError(true);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+
+  //   return () => {
+  //     cancel();
+  //   };
+  // }, [debouncedQuery, pageNumber]);
+
   useEffect(() => {
-    let cancel: Canceler;
-
-    console.log("hello world");
-
-    setLoading(true);
-    setError(false);
-
-    axios({
-      method: "GET",
-      url: "http://localhost:8000/api/restaurants",
-      params: { q: debouncedQuery, page: pageNumber },
-      cancelToken: new axios.CancelToken(c => (cancel = c)),
-    })
-      .then(res => {
-        setRestaurants(prev => [...prev, ...res.data.restaurants]);
-        setHasMore(restaurants.length + res.data.restaurants.length < res.data.total);
-      })
-      .catch(err => {
-        if (axios.isCancel(err)) return;
-        console.log(err);
-        setError(true);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-
-    return () => {
-      cancel();
-    };
-  }, [debouncedQuery, pageNumber]);
+    console.log("running useEffect on query and pageNumber");
+  }, [query, pageNumber]);
 
   const getFeaturedRestaurants = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/featured-restaurants");
+      if (cancelTokenSource) {
+        console.log("should cancel");
+        cancelTokenSource.cancel("Request canceled due to component re-render");
+      }
+
+      const source = axios.CancelToken.source();
+      console.log("cancelTokenSource", cancelTokenSource);
+      setCancelTokenSource(source);
+
+      const response = await axios.get("http://localhost:8000/api/featured-restaurants", {
+        cancelToken: source.token,
+      });
+
+      console.log(response.data);
+
       setFeaturedRestaurants(response.data);
     } catch (err) {
-      console.log("redoa");
+      // if (axios.isCancel(err)) return;
+      console.log("error", err);
+    }
+  };
+
+  const getRestaurants = async () => {
+    try {
+      if (cancelTokenSource) {
+        console.log("should cancel");
+        cancelTokenSource.cancel("Request canceled due to component re-render");
+      }
+
+      const source = axios.CancelToken.source();
+      console.log("cancelTokenSource", cancelTokenSource);
+      setCancelTokenSource(source);
+
+      const response = await axios.get("http://localhost:8000/api/restaurants", {
+        params: {
+          q: debouncedQuery,
+          page: pageNumber,
+        },
+        cancelToken: source.token,
+      });
+
+      console.log(response.data);
+
+      setRestaurants(prev => [...prev, ...response.data.restaurants]);
+      setHasMore(restaurants.length + response.data.restaurants.length < response.data.total);
+    } catch (err) {
+      // if (axios.isCancel(err)) return;
+      console.log("error", err);
     }
   };
 
@@ -110,8 +163,12 @@ export function RestaurantsProvider({ children }: RestaurantsProviderProps) {
     hasMore,
     loading,
     error,
+    cancelTokenSource,
     handleSearch,
     setPageNumber,
+    getFeaturedRestaurants,
+    setFeaturedRestaurants,
+    getRestaurants,
   };
 
   return <RestaurantsContext.Provider value={value}>{children}</RestaurantsContext.Provider>;

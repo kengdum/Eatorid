@@ -113,7 +113,7 @@ export function Layout() {
         main: { backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.colors.gray[0] },
       })}
     >
-      <Container h={"100%"} size={"100%"} px={"5%"}>
+      <Container h={"100%"} size={"100%"} px={"5%"} style={{ backgroundColor: "transparent" }}>
         <Stack h={"100%"}>
           <Container size={"100%"} w={"100%"} p={0} style={{ flexGrow: 1 }}>
             <Outlet />
