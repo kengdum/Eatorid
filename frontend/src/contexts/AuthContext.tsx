@@ -10,9 +10,6 @@ interface AuthProviderProps {
 interface AuthContextInterface {
   user: User | null;
   initialLoading: boolean;
-  loading: boolean;
-  error: string;
-  setError: Dispatch<SetStateAction<string>>;
   signUp: (email: string, name: string, password: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   logout: () => void;
@@ -21,9 +18,6 @@ interface AuthContextInterface {
 const AuthContext = createContext<AuthContextInterface>({
   user: null,
   initialLoading: true,
-  loading: false,
-  error: "",
-  setError: () => {},
   signUp: async () => {},
   signIn: async () => {},
   logout: async () => {},
@@ -35,19 +29,15 @@ export function useAuth() {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     getUser();
-    console.log("useeffect");
   }, []);
 
   const getUser = async () => {
     try {
       setInitialLoading(true);
-      setError("");
 
       const accessToken = Cookies.get("accessToken");
 
@@ -63,7 +53,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       setUser(user);
     } catch (err) {
-      setError("REEEE");
+      console.log("err");
     } finally {
       setInitialLoading(false);
     }
@@ -71,35 +61,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signUp = async (email: string, name: string, password: string) => {
     try {
-      setLoading(true);
-      setError("");
-
       const response = await axios.post("http://localhost:8000/auth/signup", { email, name, password });
       console.log(response);
     } catch (err) {
-      if (err && err instanceof AxiosError) setError(err.response?.data.message);
-      else if (err && err instanceof Error) setError(err.message);
-    } finally {
-      setLoading(false);
+      throw err;
     }
   };
 
   const signIn = async (email: string, password: string) => {
     try {
-      setLoading(true);
-      setError("");
-
       const response = await axios.post("http://localhost:8000/auth/signin", { email, password });
       const { user, accessToken } = response.data;
 
       Cookies.set("accessToken", accessToken);
-
       setUser(user);
     } catch (err) {
-      if (err && err instanceof AxiosError) setError(err.response?.data.message);
-      else if (err && err instanceof Error) setError(err.message);
-    } finally {
-      setLoading(false);
+      throw err;
     }
   };
 
@@ -110,10 +87,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const value: AuthContextInterface = {
     user,
-    loading,
     initialLoading,
-    error,
-    setError,
     signUp,
     signIn,
     logout,

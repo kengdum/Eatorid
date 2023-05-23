@@ -8,4 +8,5 @@ const RestaurantsController_1 = __importDefault(require("../controllers/Restaura
 const router = (0, express_1.Router)();
 router.get("/featured-restaurants", RestaurantsController_1.default.getFeaturedRestaurants);
 router.get("/restaurants", RestaurantsController_1.default.getRestaurants);
+router.get("/restaurants/:id", RestaurantsController_1.default.getRestaurantById);
 exports.default = router;

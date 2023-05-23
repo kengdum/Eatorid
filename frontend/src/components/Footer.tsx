@@ -13,10 +13,6 @@ const Footer = () => {
     <Flex justify={"space-between"} align={"center"} py={10}>
       <Logo width={80} />
 
-      <Text ta={"center"} size={"xs"}>
-        Delivering since 2023
-      </Text>
-
       <Group spacing={0} noWrap>
         <ActionIcon component="a" href="https://twitter.com/eat_or_yeet" size={40} onClick={doomed}>
           <IconBrandTwitter size="1.35rem" stroke={1.5} />

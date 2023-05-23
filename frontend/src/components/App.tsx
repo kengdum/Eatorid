@@ -8,6 +8,8 @@ import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
 import { useAuth } from "../contexts/AuthContext";
 import Restaurants from "../pages/Restaurants";
+import Restaurant from "../pages/Restaurant";
+import CartModal from "./CartModal";
 
 function App() {
   const { showModal, setShowModal } = useUI();
@@ -16,6 +18,7 @@ function App() {
   const showModalMap = {
     signin: <SignInModal />,
     signup: <SignUpModal />,
+    cart: <CartModal />,
     null: null,
   };
 
@@ -40,6 +43,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/restaurants" element={<Restaurants />} />
+          <Route path="/restaurants/:id" element={<Restaurant />} />
           <Route path="*" element={"Not found"} />
         </Route>
       </Routes>

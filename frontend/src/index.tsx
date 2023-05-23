@@ -6,9 +6,9 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
 import { UIProvider } from "./contexts/UIContext";
-import { RestaurantsProvider } from "./contexts/RestaurantsContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { CartProvider } from "./contexts/CartContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 const queryClient = new QueryClient();
@@ -41,9 +41,9 @@ root.render(
         >
           <UIProvider>
             <AuthProvider>
-              <RestaurantsProvider>
+              <CartProvider>
                 <App />
-              </RestaurantsProvider>
+              </CartProvider>
             </AuthProvider>
           </UIProvider>
         </MantineProvider>

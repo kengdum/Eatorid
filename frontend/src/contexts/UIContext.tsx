@@ -5,8 +5,8 @@ interface UIProviderProps {
 }
 
 interface UIContextInterface {
-  showModal: "signin" | "signup" | "null";
-  setShowModal: (val: "signin" | "signup" | "null") => void;
+  showModal: "signin" | "signup" | "cart" | "null";
+  setShowModal: (val: "signin" | "signup" | "cart" | "null") => void;
 }
 
 const defaultState = {

@@ -11,6 +11,8 @@ export interface Order {
 
 export interface OrderItem {
   menuId: string;
+  restaurantId: string;
+  name: string;
   price: number;
   quantity: number;
   mentions: string;

@@ -16,11 +16,13 @@ import Footer from "../components/Footer";
 import Logo from "../components/Logo";
 import { useUI } from "../contexts/UIContext";
 import { useAuth } from "../contexts/AuthContext";
-import { IconLogout, IconReceipt, IconShoppingCart, IconSkull, IconUser } from "@tabler/icons-react";
+import { IconLogout, IconReceipt, IconShoppingCart, IconUser } from "@tabler/icons-react";
+import { useCart } from "../contexts/CartContext";
 
 export function Layout() {
   const { setShowModal } = useUI();
   const { user, logout } = useAuth();
+  const { cart } = useCart();
 
   return (
     <AppShell
@@ -62,36 +64,18 @@ export function Layout() {
                     </Menu.Dropdown>
                   </Menu>
 
-                  <Indicator inline offset={7} position="bottom-end" withBorder label="5" size={26}>
-                    <Menu shadow="md" width={200}>
-                      <Menu.Target>
-                        <ActionIcon size={"xl"} radius="xl" variant="outline">
-                          <IconShoppingCart />
-                        </ActionIcon>
-                      </Menu.Target>
-
-                      <Menu.Dropdown>
-                        <Box p={"sm"}>
-                          <Text>
-                            Hello{" "}
-                            <Text fw={"700"} span>
-                              {user.name}
-                            </Text>
-                          </Text>
-                        </Box>
-
-                        <Menu.Item icon={<IconReceipt size={20} />}>Orders</Menu.Item>
-
-                        <Menu.Divider />
-
-                        <Menu.Item
-                          icon={<IconLogout size={20} style={{ transform: "rotate(180deg)" }} />}
-                          onClick={logout}
-                        >
-                          Logout
-                        </Menu.Item>
-                      </Menu.Dropdown>
-                    </Menu>
+                  <Indicator
+                    inline
+                    offset={7}
+                    position="bottom-end"
+                    disabled={!cart}
+                    withBorder
+                    label={cart?.items.length}
+                    size={26}
+                  >
+                    <ActionIcon size={"xl"} radius="xl" variant="outline" onClick={() => setShowModal("cart")}>
+                      <IconShoppingCart />
+                    </ActionIcon>
                   </Indicator>
                 </Flex>
               ) : (

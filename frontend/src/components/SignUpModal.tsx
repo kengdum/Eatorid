@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Button,
   Anchor,
@@ -11,12 +12,14 @@ import {
   PasswordInput,
   Notification,
   CloseButton,
+  Alert,
 } from "@mantine/core";
 import { isEmail, hasLength, matchesField } from "@mantine/form";
 import { useForm } from "@mantine/form";
-import { IconX } from "@tabler/icons-react";
+import { IconAlertCircle, IconCheck, IconX } from "@tabler/icons-react";
 import { useUI } from "../contexts/UIContext";
 import { useAuth } from "../contexts/AuthContext";
+import { AxiosError } from "axios";
 
 interface FormValues {
   email: string;
@@ -26,7 +29,11 @@ interface FormValues {
 
 const SignUpModal = () => {
   const { setShowModal } = useUI();
-  const { signUp, setError, loading, error } = useAuth();
+  const { signUp } = useAuth();
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const form = useForm({
     initialValues: {
@@ -45,11 +52,21 @@ const SignUpModal = () => {
   });
 
   const handleSubmit = async (values: FormValues) => {
-    await signUp(values.email, values.name, values.password);
+    try {
+      setError("");
+      setLoading(true);
+      await signUp(values.email, values.name, values.password);
+      setMessage("Account created successfully");
+      form.reset();
+    } catch (err) {
+      if (err && err instanceof AxiosError) setError(err.response?.data.message || err.message || "Axios code");
+      else if (err && err instanceof Error) setError("Server error");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleClose = () => {
-    setError("");
     setShowModal("null");
   };
 
@@ -73,12 +90,18 @@ const SignUpModal = () => {
             <PasswordInput label="Confirm password" {...form.getInputProps("confirmPassword")} withAsterisk />
 
             {error !== "" && (
-              <Notification icon={<IconX />} title="Sign in failed" color="red" withCloseButton={false}>
+              <Alert color="red" variant="filled" icon={<IconAlertCircle />} title="Poop!">
                 {error}
-              </Notification>
+              </Alert>
             )}
 
-            <Button color="pink" loading={loading} mt={30} type="submit">
+            {message !== "" && (
+              <Alert color="green" variant="filled" icon={<IconCheck />} title="Cool!">
+                {message}
+              </Alert>
+            )}
+
+            <Button loading={loading} mt={30} type="submit">
               Sign up
             </Button>
           </Stack>

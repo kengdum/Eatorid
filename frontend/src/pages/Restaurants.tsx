@@ -1,14 +1,27 @@
-import React from "react";
-import { Stack, Flex, TextInput, Grid, Button } from "@mantine/core";
+import React, { useEffect, useState } from "react";
+import { Stack, Flex, Text, TextInput, Grid, Button, Title, Loader, Center, CloseButton } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
 import RestaurantCard from "../components/RestaurantCard";
-import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import { useQuery, useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
+import { IRestaurant } from "../interfaces/Restaurant";
+import { useDebouncedState } from "@mantine/hooks";
+
 const Restaurants = () => {
-  const { status, error, data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
-    queryKey: ["restaurants"],
+  const [query, setQuery] = useDebouncedState("", 500);
+
+  const queryClient = useQueryClient();
+
+  const { status, error, data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery<{
+    nextPage: number | undefined;
+    total: number | undefined;
+    restaurants: IRestaurant[];
+  }>({
+    retry: false,
+    refetchOnWindowFocus: false,
+    queryKey: ["restaurants", query],
     getNextPageParam: (prevData: any) => prevData.nextPage,
     queryFn: ({ pageParam = 0 }) => getRestaurantsPaginated(pageParam),
   });
@@ -16,53 +29,81 @@ const Restaurants = () => {
   function getRestaurantsPaginated(page: number) {
     return axios
       .get("http://localhost:8000/api/restaurants", {
-        params: { q: "", page },
+        params: { q: query, page },
       })
       .then(res => res.data);
   }
 
-  if (status === "loading") return <h1>Loading...</h1>;
-  if (status === "error") return <h1>{JSON.stringify(error, null, 2)}</h1>;
+  useEffect(() => {
+    queryClient.invalidateQueries(["restaurants", query]);
+  }, [query]);
 
   return (
     <Stack py={30} pos={"relative"} spacing={50}>
       <TextInput
+        defaultValue={query}
+        onChange={e => setQuery(e.currentTarget.value)}
+        aria-disabled={true}
+        disabled={status !== "success"}
         mx={"auto"}
         w={"100%"}
         maw={"400px"}
         placeholder="Search for restaurants"
         icon={<IconSearch size="1rem" />}
-        // rightSection={query !== "" ? <CloseButton onClick={handleSearch} /> : null}
+        rightSection={query !== "" ? <CloseButton onClick={() => setQuery("")} /> : null}
       />
 
-      <Flex>
-        <div>
-          <Grid gutter={"3%"}>
-            {data.pages
-              .map(x => x.restaurants)
-              .flat()
-              .map((item: any, index: number) => {
-                return (
-                  <Grid.Col key={item._id} xs={6} sm={4} md={4} lg={3}>
-                    <RestaurantCard restaurant={item} />
-                  </Grid.Col>
-                );
-              })}
-          </Grid>
-        </div>
-      </Flex>
+      {status === "loading" ? (
+        <Center>
+          <Loader />
+        </Center>
+      ) : status === "error" ? (
+        <Center>
+          <Stack>
+            <Text ta="center" fz={48}>
+              💩
+            </Text>
+            <Text ta="center" color="dimmed">
+              Could not load the data
+            </Text>
+          </Stack>
+        </Center>
+      ) : (
+        <>
+          {data.pages[0].restaurants.length === 0 ? (
+            <Center>
+              <Stack>
+                <Text ta="center" fz={48}>
+                  😢
+                </Text>
+                <Text ta="center" color="dimmed">
+                  No results
+                </Text>
+              </Stack>
+            </Center>
+          ) : (
+            <>
+              <Grid gutter={"3%"}>
+                {data?.pages
+                  .map(x => x.restaurants)
+                  .flat()
+                  .map(item => {
+                    return (
+                      <Grid.Col key={item._id.toString()} xs={6} sm={4} md={4} lg={3}>
+                        <RestaurantCard restaurant={item} />
+                      </Grid.Col>
+                    );
+                  })}
+              </Grid>
 
-      {hasNextPage && (
-        <Button
-          className="custom-button"
-          loading={isFetchingNextPage}
-          color="rgb(216,9,47)"
-          w={"200px"}
-          mx={"auto"}
-          onClick={() => fetchNextPage()}
-        >
-          Load more
-        </Button>
+              {hasNextPage && (
+                <Button loading={isFetchingNextPage} w={"200px"} mx={"auto"} onClick={() => fetchNextPage()}>
+                  Load more
+                </Button>
+              )}
+            </>
+          )}
+        </>
       )}
     </Stack>
   );

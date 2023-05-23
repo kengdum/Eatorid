@@ -3,14 +3,17 @@ export interface Schedule {
   closing: string | null;
 }
 
-export interface RestaurantInterface {
-  name: string;
-  schedule: Schedule[];
-  minimumOrder: number;
-  deliveryMaxDistance: number;
-  deliveryPrice: number;
-  extraDeliveryFee: number;
-}
+// export interface RestaurantInterface {
+//   id?: string;
+//   name: string;
+//   schedule: [Schedule, Schedule, Schedule, Schedule, Schedule, Schedule, Schedule];
+//   minimumOrder: number;
+//   deliveryMaxDistance: number;
+//   deliveryPrice: number;
+//   extraDeliveryFee: number;
+//   d: [string, string, string];
+//   fill: [string, string, string];
+// }
 
 export interface Menu {
   restaurantId: string;

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Button,
   Anchor,
@@ -11,12 +12,14 @@ import {
   PasswordInput,
   Notification,
   CloseButton,
+  Alert,
 } from "@mantine/core";
 import { isEmail, hasLength } from "@mantine/form";
 import { useForm } from "@mantine/form";
-import { IconX } from "@tabler/icons-react";
+import { IconAlertCircle, IconX } from "@tabler/icons-react";
 import { useUI } from "../contexts/UIContext";
 import { useAuth } from "../contexts/AuthContext";
+import { AxiosError } from "axios";
 
 interface FormValues {
   email: string;
@@ -25,7 +28,10 @@ interface FormValues {
 
 const SignInModal = () => {
   const { setShowModal } = useUI();
-  const { signIn, loading, error, setError } = useAuth();
+  const { signIn } = useAuth();
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<FormValues>({
     initialValues: {
@@ -41,15 +47,22 @@ const SignInModal = () => {
 
   const handleSubmit = async (values: FormValues) => {
     try {
+      setError("");
+      setLoading(true);
+
       await signIn(values.email, values.password);
+
       setShowModal("null");
     } catch (err) {
-      console.log("dpok");
+      console.log(err);
+      if (err && err instanceof AxiosError) setError(err.response?.data.message || err.message || "Axios error");
+      else if (err && err instanceof Error) setError("Server error");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleClose = () => {
-    setError("");
     setShowModal("null");
   };
 
@@ -69,10 +82,11 @@ const SignInModal = () => {
           <Stack>
             <TextInput data-autofocus label="Email" {...form.getInputProps("email")} withAsterisk />
             <PasswordInput label="Password" {...form.getInputProps("password")} withAsterisk />
+
             {error !== "" && (
-              <Notification icon={<IconX />} title="Sign in failed" color="red" withCloseButton={false}>
+              <Alert color="red" variant="filled" icon={<IconAlertCircle />} title="Poop!">
                 {error}
-              </Notification>
+              </Alert>
             )}
 
             <Button loading={loading} mt={30} type="submit">
