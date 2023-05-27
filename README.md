@@ -1,6 +1,6 @@
 # eat-or-yeet
 
-Deployed [here on Render](https://eat-or-yeet.onrender.com)
+Deployed [here on Render](https://eat-or-yeet.onrender.com) (it might take a while to load since I'm using the free version 💩)
 
 If you want to run this bad boy locally, you need a little bit of setup
 
