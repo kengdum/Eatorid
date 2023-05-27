@@ -13,6 +13,8 @@ import { CartProvider } from "./contexts/CartContext";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 const queryClient = new QueryClient();
 
+console.log("babajee");
+
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>

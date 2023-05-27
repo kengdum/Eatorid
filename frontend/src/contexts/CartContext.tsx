@@ -4,7 +4,7 @@ import { ICart, ICartHeader, ICartItem } from "../interfaces/Cart";
 import { useUI } from "./UIContext";
 import Cookies from "js-cookie";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import axios from "../axiosConfig";
 
 interface CartProviderProps {
   children: ReactNode;

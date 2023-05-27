@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext, ReactNode } from "react";
-import axios from "axios";
+import axios from "../axiosConfig";
 import Cookies from "js-cookie";
 import { useCart } from "./CartContext";
 import { User } from "../interfaces/User";

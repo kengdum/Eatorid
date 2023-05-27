@@ -34,8 +34,6 @@ class OrdersController {
 
       if (!restaurant) throw httpErrors.NotFound("Restaurant not found!");
 
-      console.log(restaurant.schedule[dayOfWeek]);
-
       const opening = {
         h: Number(restaurant.schedule[dayOfWeek].opening?.split(":")[0]),
         m: Number(restaurant.schedule[dayOfWeek].opening?.split(":")[1]),

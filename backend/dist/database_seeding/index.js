@@ -183,7 +183,6 @@ const seedDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
         if (count !== 0)
             return;
         const restaurantIds = yield generateRestaurants();
-        console.log(restaurantIds);
         yield Promise.all(restaurantIds.map(x => generateMenu(x)));
     }
     catch (err) {

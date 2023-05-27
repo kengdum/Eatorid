@@ -2,7 +2,7 @@ import { Stack, Card, Title, Grid, Button, Loader, Center, Text, Badge, Flex, To
 
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios from "../axiosConfig";
 import MenuCard from "../components/MenuCard";
 import { IconArrowLeft, IconCoins, IconMapPinPlus, IconMotorbike, IconRoad } from "@tabler/icons-react";
 import { IMenu, IRestaurant } from "../interfaces/Restaurant";

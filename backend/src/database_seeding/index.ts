@@ -181,8 +181,6 @@ export const seedDatabase = async () => {
 
     const restaurantIds = await generateRestaurants();
 
-    console.log(restaurantIds);
-
     await Promise.all(restaurantIds.map(x => generateMenu(x)));
   } catch (err) {
     console.log("Something went wrong");

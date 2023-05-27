@@ -44,7 +44,6 @@ class OrdersController {
                 const restaurant = yield Restaurant_1.default.findOne({ _id: data.cart.header.restaurantId });
                 if (!restaurant)
                     throw http_errors_1.default.NotFound("Restaurant not found!");
-                console.log(restaurant.schedule[dayOfWeek]);
                 const opening = {
                     h: Number((_a = restaurant.schedule[dayOfWeek].opening) === null || _a === void 0 ? void 0 : _a.split(":")[0]),
                     m: Number((_b = restaurant.schedule[dayOfWeek].opening) === null || _b === void 0 ? void 0 : _b.split(":")[1]),

@@ -3,7 +3,7 @@ import { IconSearch } from "@tabler/icons-react";
 
 import RestaurantCard from "../components/RestaurantCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios from "../axiosConfig";
 
 import { IRestaurant } from "../interfaces/Restaurant";
 import { useDebouncedState } from "@mantine/hooks";

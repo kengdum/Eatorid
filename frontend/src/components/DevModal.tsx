@@ -2,7 +2,7 @@ import { Container, Divider, Flex, Text, Title, CloseButton, Select, Box } from 
 
 import { useUI } from "../contexts/UIContext";
 import { useAuth } from "../contexts/AuthContext";
-import axios from "axios";
+import axios from "../axiosConfig";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { IOrder } from "../interfaces/Order";
 

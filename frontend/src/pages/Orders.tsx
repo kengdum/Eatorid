@@ -1,7 +1,7 @@
 import { Stack, Title, Center, Loader, Text, Button } from "@mantine/core";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useAuth } from "../contexts/AuthContext";
-import axios from "axios";
+import axios from "../axiosConfig";
 import Cookies from "js-cookie";
 import OrderCard from "../components/OrderCard";
 import { IOrder } from "../interfaces/Order";

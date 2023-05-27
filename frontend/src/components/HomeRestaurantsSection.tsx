@@ -2,7 +2,7 @@ import { Button, Center, Text, Flex, Grid, Loader, Stack, Title } from "@mantine
 import { Link } from "react-router-dom";
 import RestaurantCard from "./RestaurantCard";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios from "../axiosConfig";
 
 const HomeRestaurantsSection = () => {
   const { status, data } = useQuery({
