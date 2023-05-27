@@ -1,7 +1,4 @@
-import React from "react";
 import { Stack, Title, Center, Loader, Text, Button } from "@mantine/core";
-import HomeFeaturesSection from "../components/HomeFeaturesSection";
-import HomeRestaurantsSection from "../components/HomeRestaurantsSection";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
@@ -14,7 +11,7 @@ const Orders = () => {
 
   const accessToken = Cookies.get("accessToken");
 
-  const { status, error, data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery<{
+  const { status, data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery<{
     nextPage: number | undefined;
     orders: IOrder[];
   }>({

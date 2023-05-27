@@ -1,4 +1,3 @@
-import React from "react";
 import { IconAlertCircle, IconMinus } from "@tabler/icons-react";
 import { useCart } from "../contexts/CartContext";
 import { useUI } from "../contexts/UIContext";
@@ -8,7 +7,6 @@ import {
   Button,
   Group,
   TextInput,
-  Code,
   Textarea,
   NumberInput,
   Container,
@@ -16,9 +14,7 @@ import {
   Stack,
   Flex,
   Text,
-  Divider,
   ActionIcon,
-  Box,
   Title,
   CloseButton,
   Center,
@@ -33,10 +29,11 @@ interface FormValues {
 }
 
 const CartModal = () => {
-  const { cart, orderPlaced, isLoading, isError, removeFromCart, placeOrder, setOrderPlaced } = useCart();
+  const { cart, orderPlaced, isLoading, removeFromCart, placeOrder, setOrderPlaced } = useCart();
   const { setShowModal } = useUI();
 
   const [active, setActive] = useState(0);
+  const [error, setError] = useState("");
 
   const handleClose = () => {
     setOrderPlaced(false);
@@ -71,11 +68,13 @@ const CartModal = () => {
 
   const nextStep = async () => {
     try {
+      setError("");
       if (form.validate().hasErrors) return setActive(curr => curr);
       if (active === 1) await placeOrder(form.values, extraDeliveryFee);
 
       setActive(current => (current < 2 ? current + 1 : current));
-    } catch (err) {
+    } catch (err: any) {
+      setError(err?.response?.data.message || "We couldn't complete your order! Please try again");
       console.log("err in CartModal.tsx", err);
     }
 
@@ -208,9 +207,9 @@ const CartModal = () => {
                   </Stack>
                 </Card>
 
-                {isError && (
+                {error !== "" && (
                   <Alert icon={<IconAlertCircle size="2rem" stroke={"3"} />} variant="filled" color="red">
-                    <Text fw={700}>We couldn't complete your order! Please try again</Text>
+                    <Text fw={700}>{error}</Text>
                   </Alert>
                 )}
               </Stack>

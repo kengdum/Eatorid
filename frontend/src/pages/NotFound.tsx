@@ -1,7 +1,4 @@
-import React from "react";
-import { Center, Title, Stack, Text, Button } from "@mantine/core";
-import HomeFeaturesSection from "../components/HomeFeaturesSection";
-import HomeRestaurantsSection from "../components/HomeRestaurantsSection";
+import { Center, Stack, Text, Button } from "@mantine/core";
 import { Link } from "react-router-dom";
 
 const NotFound = () => {

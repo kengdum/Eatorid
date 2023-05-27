@@ -2,15 +2,7 @@ import { Flex, Box, Menu, Text, ActionIcon, Indicator } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { useUI } from "../contexts/UIContext";
 import { useAuth } from "../contexts/AuthContext";
-import {
-  IconCodeCircle,
-  IconLogout,
-  IconReceipt,
-  IconSdk,
-  IconShoppingCart,
-  IconTags,
-  IconUser,
-} from "@tabler/icons-react";
+import { IconCodeCircle, IconLogout, IconReceipt, IconShoppingCart, IconTags, IconUser } from "@tabler/icons-react";
 import { useCart } from "../contexts/CartContext";
 
 export function NavbarUserAuthenticated() {

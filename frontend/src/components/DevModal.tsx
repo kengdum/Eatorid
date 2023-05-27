@@ -1,28 +1,8 @@
-import { useState } from "react";
-import {
-  Button,
-  Anchor,
-  Container,
-  Divider,
-  TextInput,
-  Flex,
-  Text,
-  Title,
-  Stack,
-  PasswordInput,
-  Notification,
-  CloseButton,
-  Card,
-  Alert,
-  Select,
-  Box,
-} from "@mantine/core";
-import { isEmail, hasLength } from "@mantine/form";
-import { useForm } from "@mantine/form";
-import { IconAlertCircle, IconX } from "@tabler/icons-react";
+import { Container, Divider, Flex, Text, Title, CloseButton, Select, Box } from "@mantine/core";
+
 import { useUI } from "../contexts/UIContext";
 import { useAuth } from "../contexts/AuthContext";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { IOrder } from "../interfaces/Order";
 
@@ -32,14 +12,14 @@ const DevModal = () => {
 
   const queryClient = useQueryClient();
 
-  const { status, error, data } = useQuery<{ orders: IOrder[] }>({
+  const { data } = useQuery<{ orders: IOrder[] }>({
     refetchOnWindowFocus: false,
     retry: false,
     queryKey: ["ordersDev"],
     queryFn: getOrders,
   });
 
-  const { mutate, isLoading, isError } = useMutation({
+  const { mutate, isError } = useMutation({
     mutationFn: (data: any) => axios.patch("http://localhost:8000/api/orders/", { data }),
   });
 

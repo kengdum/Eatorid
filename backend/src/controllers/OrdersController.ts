@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import Order from "../models/Order";
 import httpErrors from "http-errors";
+import Restaurant from "../models/Restaurant";
+import Menu from "../models/Menu";
 
 class OrdersController {
   public async getOrders(req: Request, res: Response, next: NextFunction) {
@@ -22,6 +24,38 @@ class OrdersController {
   public async placeOrder(req: Request, res: Response, next: NextFunction) {
     try {
       const { data } = req.body;
+
+      const now = new Date();
+      const dayOfWeek = now.getDay();
+      const currentHour = now.getHours();
+      const currentMinute = now.getMinutes();
+
+      const restaurant = await Restaurant.findOne({ _id: data.cart.header.restaurantId });
+
+      if (!restaurant) throw httpErrors.NotFound("Restaurant not found!");
+
+      console.log(restaurant.schedule[dayOfWeek]);
+
+      const opening = {
+        h: Number(restaurant.schedule[dayOfWeek].opening?.split(":")[0]),
+        m: Number(restaurant.schedule[dayOfWeek].opening?.split(":")[1]),
+      };
+      const closing = {
+        h: Number(restaurant.schedule[dayOfWeek].closing?.split(":")[0]),
+        m: Number(restaurant.schedule[dayOfWeek].closing?.split(":")[1]),
+      };
+
+      const openingTimeInMinutes = opening.h * 60 + opening.m;
+      const closingTimeInMinutes = closing.h * 60 + closing.m;
+
+      const currentTimeInMinutes = currentHour * 60 + currentMinute;
+
+      const isOpen =
+        !isNaN(openingTimeInMinutes) &&
+        currentTimeInMinutes >= openingTimeInMinutes &&
+        currentTimeInMinutes <= closingTimeInMinutes;
+
+      if (!isOpen) throw httpErrors.BadRequest("Restaurant is closed!");
 
       const newOrder = new Order({
         userId: req.userId,

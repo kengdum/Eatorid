@@ -1,8 +1,8 @@
-import { useState, useEffect, createContext, useContext, ReactNode, Dispatch, SetStateAction } from "react";
-import { User } from "../../../interfaces/User";
-import axios, { AxiosError } from "axios";
+import { useState, useEffect, createContext, useContext, ReactNode } from "react";
+import axios from "axios";
 import Cookies from "js-cookie";
 import { useCart } from "./CartContext";
+import { User } from "../interfaces/User";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -64,7 +64,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signUp = async (email: string, name: string, password: string) => {
     try {
-      const response = await axios.post("http://localhost:8000/auth/signup", { email, name, password });
+      await axios.post("http://localhost:8000/auth/signup", { email, name, password });
     } catch (err) {
       throw err;
     }

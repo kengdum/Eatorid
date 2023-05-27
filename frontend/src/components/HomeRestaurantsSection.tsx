@@ -1,11 +1,11 @@
-import { Button, Center, Container, Text, Flex, Grid, Loader, Skeleton, Stack, Title } from "@mantine/core";
+import { Button, Center, Text, Flex, Grid, Loader, Stack, Title } from "@mantine/core";
 import { Link } from "react-router-dom";
 import RestaurantCard from "./RestaurantCard";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const HomeRestaurantsSection = () => {
-  const { status, error, data } = useQuery({
+  const { status, data } = useQuery({
     refetchOnWindowFocus: false,
     retry: false,
     queryKey: ["featuredRestaurants"],

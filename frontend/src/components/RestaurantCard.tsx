@@ -1,7 +1,5 @@
-import { Card, Stack, Title, Flex, Badge, Image, UnstyledButton, Group } from "@mantine/core";
-import React from "react";
+import { Card, Stack, Title, Flex, Badge, UnstyledButton } from "@mantine/core";
 import { IconMotorbike, IconCoins } from "@tabler/icons-react";
-import img from "../assets/1_png.png";
 import { Link } from "react-router-dom";
 import { IRestaurant } from "../interfaces/Restaurant";
 

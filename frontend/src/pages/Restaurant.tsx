@@ -1,23 +1,5 @@
-import React from "react";
-import {
-  Stack,
-  Container,
-  Card,
-  Title,
-  Grid,
-  Button,
-  Anchor,
-  Loader,
-  Center,
-  Text,
-  Badge,
-  Flex,
-  Tooltip,
-  Box,
-  Accordion,
-} from "@mantine/core";
-import HomeFeaturesSection from "../components/HomeFeaturesSection";
-import HomeRestaurantsSection from "../components/HomeRestaurantsSection";
+import { Stack, Card, Title, Grid, Button, Loader, Center, Text, Badge, Flex, Tooltip } from "@mantine/core";
+
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -28,7 +10,7 @@ import { IMenu, IRestaurant } from "../interfaces/Restaurant";
 const Restaurant = () => {
   const { id } = useParams();
 
-  const { status, error, data } = useQuery<{
+  const { status, data } = useQuery<{
     restaurant: IRestaurant;
     menu: IMenu[];
   }>({

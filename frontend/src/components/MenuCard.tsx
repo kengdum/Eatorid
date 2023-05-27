@@ -1,8 +1,5 @@
-import { Card, Stack, Title, Flex, Badge, Image, Text, UnstyledButton, Group, ActionIcon } from "@mantine/core";
-import React from "react";
-import { IconMotorbike, IconCoins, IconPlus, IconMinus } from "@tabler/icons-react";
-import img from "../assets/1_png.png";
-import { Link } from "react-router-dom";
+import { Card, Stack, Title, Flex, Text, ActionIcon } from "@mantine/core";
+import { IconPlus, IconMinus } from "@tabler/icons-react";
 import { IRestaurant, IMenu } from "../interfaces/Restaurant";
 import { useCart } from "../contexts/CartContext";
 
@@ -74,24 +71,6 @@ const MenuCard = ({ isOpen, restaurant, menu }: MenuCardProps) => {
               </ActionIcon>
             </Flex>
           )}
-
-          {/* {isOpen && (
-            <Flex gap="md">
-              {cartItem && (
-                <>
-                  <ActionIcon color="pink" size="md" radius="xl" variant="filled" onClick={() => removeFromCart(menu)}>
-                    <IconMinus />
-                  </ActionIcon>
-
-                  <Text fw="700">{cartItem.quantity}</Text>
-                </>
-              )}
-
-              <ActionIcon color="pink" size="md" radius="xl" variant="filled" onClick={() => addToCart(menu)}>
-                <IconPlus />
-              </ActionIcon>
-            </Flex>
-          )} */}
         </Flex>
       </Flex>
     </Card>

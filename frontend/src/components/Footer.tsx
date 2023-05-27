@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "./Logo";
-import { Flex, Group, ActionIcon, Text } from "@mantine/core";
+import { Flex, Group, ActionIcon } from "@mantine/core";
 import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from "@tabler/icons-react";
 
 const Footer = () => {

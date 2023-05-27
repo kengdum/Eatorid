@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Stack, Flex, Text, TextInput, Grid, Button, Title, Loader, Center, CloseButton } from "@mantine/core";
+import { Stack, Text, TextInput, Grid, Button, Loader, Center, CloseButton } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
 import RestaurantCard from "../components/RestaurantCard";
-import { useQuery, useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import { IRestaurant, ISchedule } from "../interfaces/Restaurant";
+import { IRestaurant } from "../interfaces/Restaurant";
 import { useDebouncedState } from "@mantine/hooks";
 
 const Restaurants = () => {
   const [query, setQuery] = useDebouncedState("", 500);
 
-  const { status, error, data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery<{
+  const { status, data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery<{
     nextPage: number | undefined;
     total: number | undefined;
     restaurants: IRestaurant[];

@@ -10,13 +10,12 @@ import {
   Title,
   Stack,
   PasswordInput,
-  Notification,
   CloseButton,
   Alert,
 } from "@mantine/core";
 import { isEmail, hasLength, matchesField } from "@mantine/form";
 import { useForm } from "@mantine/form";
-import { IconAlertCircle, IconCheck, IconX } from "@tabler/icons-react";
+import { IconAlertCircle, IconCheck } from "@tabler/icons-react";
 import { useUI } from "../contexts/UIContext";
 import { useAuth } from "../contexts/AuthContext";
 import { AxiosError } from "axios";

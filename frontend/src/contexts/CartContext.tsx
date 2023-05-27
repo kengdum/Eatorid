@@ -92,6 +92,7 @@ export function CartProvider({ children }: CartProviderProps) {
     };
 
     getLocalStorageCart();
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {

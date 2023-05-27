@@ -1,37 +1,6 @@
-import {
-  Card,
-  Accordion,
-  Timeline,
-  Flex,
-  Badge,
-  Stack,
-  Text,
-  Center,
-  Blockquote,
-  Loader,
-  Stepper,
-} from "@mantine/core";
-import React from "react";
-import {
-  IconMotorbike,
-  IconCoins,
-  IconPlus,
-  IconMinus,
-  IconPin,
-  IconMapPin,
-  IconRoad,
-  IconGitBranch,
-  IconGitCommit,
-  IconGitPullRequest,
-  IconMessage2,
-  IconMessage2Exclamation,
-} from "@tabler/icons-react";
-import img from "../assets/1_png.png";
-import { Link } from "react-router-dom";
-import { IRestaurant, IMenu } from "../interfaces/Restaurant";
-import { useCart } from "../contexts/CartContext";
+import { Card, Accordion, Flex, Badge, Stack, Text, Center, Blockquote, Loader, Stepper } from "@mantine/core";
+import { IconMapPin, IconRoad, IconMessage2Exclamation } from "@tabler/icons-react";
 import { IOrder } from "../interfaces/Order";
-import { IconMessageDots } from "@tabler/icons-react";
 
 interface MenuCardProps {
   order: IOrder;
