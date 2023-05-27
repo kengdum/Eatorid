@@ -46,7 +46,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       if (!accessToken) return;
 
-      const response = await axios.get("http://localhost:8000/auth/user", {
+      const response = await axios.get("/auth/user", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -64,7 +64,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signUp = async (email: string, name: string, password: string) => {
     try {
-      await axios.post("http://localhost:8000/auth/signup", { email, name, password });
+      await axios.post("/auth/signup", { email, name, password });
     } catch (err) {
       throw err;
     }
@@ -72,7 +72,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const response = await axios.post("http://localhost:8000/auth/signin", { email, password });
+      const response = await axios.post("/auth/signin", { email, password });
       const { user, accessToken } = response.data;
 
       Cookies.set("accessToken", accessToken);

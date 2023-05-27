@@ -24,7 +24,7 @@ const Orders = () => {
 
   function getOrdersPaginated(page: number) {
     return axios
-      .get("http://localhost:8000/api/orders", {
+      .get("/api/orders", {
         params: { page },
         headers: {
           Authorization: `Bearer ${accessToken}`,

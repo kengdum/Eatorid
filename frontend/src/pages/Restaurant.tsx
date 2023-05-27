@@ -46,9 +46,7 @@ const Restaurant = () => {
     currentTimeInMinutes <= closingTimeInMinutes;
 
   function getRestaurant() {
-    return axios
-      .get<{ restaurant: IRestaurant; menu: IMenu[] }>(`http://localhost:8000/api/restaurants/${id}`)
-      .then(res => res.data);
+    return axios.get<{ restaurant: IRestaurant; menu: IMenu[] }>(`/api/restaurants/${id}`).then(res => res.data);
   }
 
   return (

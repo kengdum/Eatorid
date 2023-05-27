@@ -13,7 +13,7 @@ const HomeRestaurantsSection = () => {
   });
 
   function getFeaturedRestaurants() {
-    return axios.get("http://localhost:8000/api/featured-restaurants").then(res => res.data);
+    return axios.get("/api/featured-restaurants").then(res => res.data);
   }
 
   return (

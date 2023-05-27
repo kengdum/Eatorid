@@ -20,11 +20,11 @@ const DevModal = () => {
   });
 
   const { mutate, isError } = useMutation({
-    mutationFn: (data: any) => axios.patch("http://localhost:8000/api/orders/", { data }),
+    mutationFn: (data: any) => axios.patch("/api/orders", { data }),
   });
 
   function getOrders() {
-    return axios.get("http://localhost:8000/api/all-orders").then(res => res.data);
+    return axios.get("/api/all-orders").then(res => res.data);
   }
 
   function updateOrderStatus(val: string, orderId: string) {

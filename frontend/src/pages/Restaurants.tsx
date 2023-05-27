@@ -25,7 +25,7 @@ const Restaurants = () => {
 
   function getRestaurantsPaginated(page: number) {
     return axios
-      .get("http://localhost:8000/api/restaurants", {
+      .get("/api/restaurants", {
         params: { q: query, page },
       })
       .then(res => res.data);

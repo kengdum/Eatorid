@@ -59,7 +59,7 @@ export function CartProvider({ children }: CartProviderProps) {
   const { mutate, isLoading, isError } = useMutation({
     mutationFn: (data: any) =>
       axios.post(
-        "http://localhost:8000/api/orders",
+        "/api/orders",
         { data },
         {
           headers: {
