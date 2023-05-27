@@ -73,25 +73,6 @@ const menus = [
     { name: "Pepperoni Pizza", description: "Pizza topped with pepperoni slices and cheese" },
     { name: "BBQ Chicken Pizza", description: "Pizza topped with BBQ sauce, chicken, and cheese" },
     { name: "Vegetarian Pizza", description: "Pizza with assorted vegetables and cheese" },
-    { name: "Buffalo Chicken Pizza", description: "Pizza with spicy buffalo sauce, chicken, and cheese" },
-    { name: "Spinach and Feta Pizza", description: "Pizza with spinach, feta cheese, and olive oil" },
-    { name: "Classic Cheeseburger", description: "Juicy beef patty with cheese, lettuce, and tomato" },
-    { name: "Spicy Chicken Burger", description: "Burger with spicy breaded chicken and toppings" },
-    { name: "Double Cheeseburger", description: "Burger with two beef patties and cheese" },
-    { name: "Western Burger", description: "Burger with onion rings, bacon, and BBQ sauce" },
-    { name: "Blue Cheese Burger", description: "Burger with blue cheese crumbles and toppings" },
-    { name: "Jalapeno Burger", description: "Burger with jalapenos and spicy toppings" },
-    { name: "Avocado Burger", description: "Burger topped with fresh avocado slices and toppings" },
-    { name: "Clam Chowder", description: "Creamy soup with clams and potatoes" },
-    { name: "Lentil Soup", description: "Soup made with nutritious lentils and spices" },
-    { name: "Cream of Mushroom Soup", description: "Rich and creamy soup with mushrooms" },
-    { name: "French Onion Soup", description: "Soup made with caramelized onions and melted cheese" },
-    { name: "Corn Chowder", description: "Hearty soup with sweet corn and potatoes" },
-    { name: "Beef Stew", description: "Thick and flavorful stew with tender beef and vegetables" },
-    { name: "Butternut Squash Soup", description: "Soup made with roasted butternut squash and spices" },
-    { name: "Broccoli Cheddar Soup", description: "Soup with broccoli and cheddar cheese" },
-    { name: "Carbonara", description: "Pasta with egg, cheese, pancetta, and black pepper" },
-    { name: "Shrimp Scampi", description: "Pasta with shrimp, garlic, and butter sauce" },
     { name: "Grilled Chicken Breast", description: "Juicy chicken breast grilled to perfection" },
     { name: "Chicken Parmesan", description: "Breaded chicken topped with tomato sauce and melted cheese" },
     { name: "BBQ Chicken Wings", description: "Chicken wings glazed with BBQ sauce" },
@@ -106,14 +87,6 @@ const menus = [
     },
     { name: "New York Strip Steak", description: "Classic New York strip steak" },
     { name: "Prime Rib", description: "Slow-roasted prime rib with au jus" },
-    { name: "Surf and Turf", description: "Combination of steak and seafood, typically lobster or shrimp" },
-    { name: "Beef Tacos", description: "Tacos filled with seasoned ground beef and toppings" },
-    { name: "Beef Burrito", description: "Burrito filled with beef, rice, beans, and toppings" },
-    { name: "Beef Stir Fry", description: "Beef and vegetables stir-fried in a savory sauce" },
-    { name: "Beef Kebabs", description: "Skewered beef marinated and grilled to perfection" },
-    { name: "Grilled Salmon", description: "Fresh salmon fillet grilled and seasoned with herbs" },
-    { name: "Grilled Vegetables", description: "Assorted vegetables grilled to perfection" },
-    { name: "Vegetable Stir Fry", description: "Assorted vegetables stir-fried in a savory sauce" },
     { name: "Greek Salad", description: "Salad with cucumbers, tomatoes, olives, feta cheese, and dressing" },
     { name: "Caesar Salad", description: "Salad with romaine lettuce, croutons, Parmesan cheese, and Caesar dressing" },
     { name: "Cobb Salad", description: "Salad with grilled chicken, bacon, avocado, eggs, and blue cheese" },
@@ -124,16 +97,6 @@ const menus = [
     { name: "Fruit Salad", description: "Assorted fresh fruits served in a salad" },
     { name: "Chocolate Cake", description: "Rich and moist chocolate cake with chocolate frosting" },
     { name: "Cheesecake", description: "Creamy and decadent cheesecake with a graham cracker crust" },
-    { name: "Strawberry Shortcake", description: "Dessert with fresh strawberries, whipped cream, and cake" },
-    { name: "Ice Cream Sundae", description: "Sundae with ice cream, toppings, whipped cream, and a cherry on top" },
-    { name: "Lemon Tart", description: "Tart with tangy lemon filling and a buttery crust" },
-    { name: "Banana Split", description: "Classic dessert with a split banana, ice cream, and toppings" },
-    { name: "Panna Cotta", description: "Italian dessert with a silky cream base, served with fruit sauce" },
-    { name: "Key Lime Pie", description: "Pie with a tangy lime filling and a crumbly graham cracker crust" },
-    { name: "Fudge Brownie", description: "Rich and fudgy chocolate brownie" },
-    { name: "Carrot Cake", description: "Moist cake with grated carrots and cream cheese frosting" },
-    { name: "Baklava", description: "Sweet pastry made with layers of filo dough and nuts" },
-    { name: "Cinnamon Roll", description: "Sweet roll with cinnamon filling and cream cheese frosting" },
 ];
 const prices = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 const openingHours = [8, 9, 10, 11, 12];
@@ -179,7 +142,7 @@ const paths = [
     ],
 ];
 const generateRestaurants = () => __awaiter(void 0, void 0, void 0, function* () {
-    const data = restaurantNames.slice(0, 5).map(name => ({
+    const data = restaurantNames.map(name => ({
         name,
         schedule: Array.from({ length: 7 }).map(() => Math.random() < 0.2
             ? { opening: null, closing: null }
@@ -213,6 +176,7 @@ const seedDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // await mongoose.connection.db.dropCollection("restaurants");
         // await mongoose.connection.db.dropCollection("menus");
+        // await mongoose.connection.db.dropCollection("orders");
         if (process.env.NODE_ENV === "production")
             return;
         const count = yield Restaurant_1.default.countDocuments({});

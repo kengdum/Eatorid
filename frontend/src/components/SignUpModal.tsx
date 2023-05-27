@@ -90,8 +90,8 @@ const SignUpModal = () => {
             <PasswordInput label="Confirm password" {...form.getInputProps("confirmPassword")} withAsterisk />
 
             {error !== "" && (
-              <Alert color="red" variant="filled" icon={<IconAlertCircle />} title="Poop!">
-                {error}
+              <Alert color="red" variant="filled" icon={<IconAlertCircle size="2rem" stroke={3} />} title="Poop!">
+                <Text fw={"700"}>{error}</Text>
               </Alert>
             )}
 

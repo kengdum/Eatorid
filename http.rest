@@ -1,0 +1,12 @@
+POST http://localhost:8000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "12345678"
+}
+
+###
+
+GET http://localhost:8000/api/orders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDY0ZjdmYzYwNTdiNDllN2NhMDFmYzYiLCJpYXQiOjE2ODUxODQxNjF9.UaWs_ldvNqj2Lv2ZPn4m0pwEL0rRXUOAnfOb9R1PXP8

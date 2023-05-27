@@ -6,13 +6,11 @@ import RestaurantCard from "../components/RestaurantCard";
 import { useQuery, useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-import { IRestaurant } from "../interfaces/Restaurant";
+import { IRestaurant, ISchedule } from "../interfaces/Restaurant";
 import { useDebouncedState } from "@mantine/hooks";
 
 const Restaurants = () => {
   const [query, setQuery] = useDebouncedState("", 500);
-
-  const queryClient = useQueryClient();
 
   const { status, error, data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery<{
     nextPage: number | undefined;
@@ -33,10 +31,6 @@ const Restaurants = () => {
       })
       .then(res => res.data);
   }
-
-  useEffect(() => {
-    queryClient.invalidateQueries(["restaurants", query]);
-  }, [query]);
 
   return (
     <Stack py={30} pos={"relative"} spacing={50}>
@@ -109,4 +103,4 @@ const Restaurants = () => {
   );
 };
 
-export default React.memo(Restaurants);
+export default Restaurants;

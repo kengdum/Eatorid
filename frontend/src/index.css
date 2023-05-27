@@ -50,3 +50,13 @@ a {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1rem;
 }
+
+.mantine-1rpszyk {
+  border: none;
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    zoom: 0.8;
+  }
+}

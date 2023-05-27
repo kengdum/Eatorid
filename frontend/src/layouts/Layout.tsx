@@ -1,28 +1,13 @@
-import {
-  AppShell,
-  Button,
-  Flex,
-  Header,
-  Stack,
-  Container,
-  Box,
-  Menu,
-  Text,
-  ActionIcon,
-  Indicator,
-} from "@mantine/core";
+import { AppShell, Flex, Header, Stack, Container } from "@mantine/core";
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 import Logo from "../components/Logo";
-import { useUI } from "../contexts/UIContext";
 import { useAuth } from "../contexts/AuthContext";
-import { IconLogout, IconReceipt, IconShoppingCart, IconUser } from "@tabler/icons-react";
-import { useCart } from "../contexts/CartContext";
+import { NavbarUserAuthenticated } from "../components/NavbarUserAuthenticated";
+import { NavbarUserNotAuthenticated } from "../components/NavbarUserNotAuthenticated";
 
 export function Layout() {
-  const { setShowModal } = useUI();
-  const { user, logout } = useAuth();
-  const { cart } = useCart();
+  const { user } = useAuth();
 
   return (
     <AppShell
@@ -32,63 +17,7 @@ export function Layout() {
             <Flex h={"100%"} align={"center"} justify={"space-between"}>
               <Logo />
 
-              {user ? (
-                <Flex gap="md">
-                  <Menu shadow="md" width={200}>
-                    <Menu.Target>
-                      <ActionIcon size={"xl"} radius="xl" variant="outline">
-                        <IconUser />
-                      </ActionIcon>
-                    </Menu.Target>
-
-                    <Menu.Dropdown>
-                      <Box p={"sm"}>
-                        <Text>
-                          Hello{" "}
-                          <Text fw={"700"} span>
-                            {user.name}
-                          </Text>
-                        </Text>
-                      </Box>
-
-                      <Menu.Item icon={<IconReceipt size={20} />}>Orders</Menu.Item>
-
-                      <Menu.Divider />
-
-                      <Menu.Item
-                        icon={<IconLogout size={20} style={{ transform: "rotate(180deg)" }} />}
-                        onClick={logout}
-                      >
-                        Logout
-                      </Menu.Item>
-                    </Menu.Dropdown>
-                  </Menu>
-
-                  <Indicator
-                    inline
-                    offset={7}
-                    position="bottom-end"
-                    disabled={!cart}
-                    withBorder
-                    label={cart?.items.length}
-                    size={26}
-                  >
-                    <ActionIcon size={"xl"} radius="xl" variant="outline" onClick={() => setShowModal("cart")}>
-                      <IconShoppingCart />
-                    </ActionIcon>
-                  </Indicator>
-                </Flex>
-              ) : (
-                <Flex gap={10}>
-                  <Button variant="subtle" className="text" onClick={() => setShowModal("signin")}>
-                    Sign in
-                  </Button>
-
-                  <Button className="text" onClick={() => setShowModal("signup")}>
-                    Sign up
-                  </Button>
-                </Flex>
-              )}
+              {user ? <NavbarUserAuthenticated /> : <NavbarUserNotAuthenticated />}
             </Flex>
           </Container>
         </Header>

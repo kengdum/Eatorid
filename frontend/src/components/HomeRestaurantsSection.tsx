@@ -12,8 +12,6 @@ const HomeRestaurantsSection = () => {
     queryFn: getFeaturedRestaurants,
   });
 
-  console.log("AICI BAIETE", data);
-
   function getFeaturedRestaurants() {
     return axios.get("http://localhost:8000/api/featured-restaurants").then(res => res.data);
   }

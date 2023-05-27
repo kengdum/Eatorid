@@ -10,6 +10,11 @@ import { useAuth } from "../contexts/AuthContext";
 import Restaurants from "../pages/Restaurants";
 import Restaurant from "../pages/Restaurant";
 import CartModal from "./CartModal";
+import SwitchRestaurantModal from "./SwitchRestaurantModal";
+import NotFound from "../pages/NotFound";
+import Orders from "../pages/Orders";
+import PrivateRoute from "./PrivateRoute";
+import DevModal from "./DevModal";
 
 function App() {
   const { showModal, setShowModal } = useUI();
@@ -19,6 +24,8 @@ function App() {
     signin: <SignInModal />,
     signup: <SignUpModal />,
     cart: <CartModal />,
+    switchRestaurant: <SwitchRestaurantModal />,
+    dev: <DevModal />,
     null: null,
   };
 
@@ -44,7 +51,10 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/restaurants" element={<Restaurants />} />
           <Route path="/restaurants/:id" element={<Restaurant />} />
-          <Route path="*" element={"Not found"} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/orders" element={<Orders />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </div>

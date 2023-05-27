@@ -12,7 +12,12 @@ import { seedDatabase } from "./database_seeding";
 const PORT = process.env.PORT || 8000;
 const app: Express = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(routes);
 app.use((req: Request, res: Response, next: NextFunction) => {

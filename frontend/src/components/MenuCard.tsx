@@ -33,45 +33,47 @@ const MenuCard = ({ isOpen, restaurant, menu }: MenuCardProps) => {
             {menu.price} RON
           </Text>
 
-          <Flex gap="md">
-            {cartItem && (
-              <>
-                <ActionIcon
-                  color="pink"
-                  size="md"
-                  radius="xl"
-                  variant="filled"
-                  onClick={() => removeFromCart(menu._id)}
-                >
-                  <IconMinus />
-                </ActionIcon>
+          {isOpen && (
+            <Flex gap="md">
+              {cartItem && (
+                <>
+                  <ActionIcon
+                    color="pink"
+                    size="md"
+                    radius="xl"
+                    variant="filled"
+                    onClick={() => removeFromCart(menu._id)}
+                  >
+                    <IconMinus />
+                  </ActionIcon>
 
-                <Text fw="700">{cartItem.quantity}</Text>
-              </>
-            )}
+                  <Text fw="700">{cartItem.quantity}</Text>
+                </>
+              )}
 
-            <ActionIcon
-              color="pink"
-              size="md"
-              radius="xl"
-              variant="filled"
-              onClick={() =>
-                addToCart(
-                  {
-                    restaurantId: restaurant._id,
-                    restaurantName: restaurant.name,
-                    minimumOrder: restaurant.minimumOrder,
-                    deliveryMaxDistance: restaurant.deliveryMaxDistance,
-                    deliveryPrice: restaurant.deliveryPrice,
-                    extraDeliveryFee: restaurant.extraDeliveryFee,
-                  },
-                  { menuId: menu._id, name: menu.name, price: menu.price, quantity: 1, mentions: "" }
-                )
-              }
-            >
-              <IconPlus />
-            </ActionIcon>
-          </Flex>
+              <ActionIcon
+                color="pink"
+                size="md"
+                radius="xl"
+                variant="filled"
+                onClick={() =>
+                  addToCart(
+                    {
+                      restaurantId: restaurant._id,
+                      restaurantName: restaurant.name,
+                      minimumOrder: restaurant.minimumOrder,
+                      deliveryMaxDistance: restaurant.deliveryMaxDistance,
+                      deliveryPrice: restaurant.deliveryPrice,
+                      extraDeliveryFee: restaurant.extraDeliveryFee,
+                    },
+                    { menuId: menu._id, name: menu.name, price: menu.price, quantity: 1 }
+                  )
+                }
+              >
+                <IconPlus />
+              </ActionIcon>
+            </Flex>
+          )}
 
           {/* {isOpen && (
             <Flex gap="md">

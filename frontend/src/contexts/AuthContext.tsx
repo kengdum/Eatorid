@@ -2,6 +2,7 @@ import { useState, useEffect, createContext, useContext, ReactNode, Dispatch, Se
 import { User } from "../../../interfaces/User";
 import axios, { AxiosError } from "axios";
 import Cookies from "js-cookie";
+import { useCart } from "./CartContext";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -30,6 +31,8 @@ export function useAuth() {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [initialLoading, setInitialLoading] = useState(true);
+
+  const { discardCart } = useCart();
 
   useEffect(() => {
     getUser();
@@ -62,7 +65,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const signUp = async (email: string, name: string, password: string) => {
     try {
       const response = await axios.post("http://localhost:8000/auth/signup", { email, name, password });
-      console.log(response);
     } catch (err) {
       throw err;
     }
@@ -82,6 +84,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = () => {
     Cookies.remove("accessToken");
+    discardCart();
     setUser(null);
   };
 

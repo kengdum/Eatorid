@@ -84,4 +84,4 @@ const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
   );
 };
 
-export default React.memo(RestaurantCard);
+export default RestaurantCard;
