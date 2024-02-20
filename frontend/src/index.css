@@ -25,7 +25,7 @@ a {
   width: 100%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .test .visual {
@@ -38,11 +38,11 @@ a {
 }
 
 .highlight {
-  background-color: rgba(166, 30, 77, 1);
+  background-color: rgb(103, 51, 23);
 }
 
 .menu-highlight {
-  background-color: rgba(166, 30, 77, 0.3);
+  background-color: #673317;
 }
 
 .schedule-container {

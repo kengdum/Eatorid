@@ -55,7 +55,7 @@ const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
                 py={14}
                 fullWidth
                 variant="filled"
-                color={!isOpen ? "gray" : restaurant.deliveryPrice === 0 ? "green" : "pink"}
+                color={!isOpen ? "gray" : restaurant.deliveryPrice === 0 ? "green" : "orange"}
               >
                 <Flex w={"100%"} gap={5} align={"center"}>
                   <IconMotorbike />
@@ -67,7 +67,7 @@ const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
                 py={14}
                 fullWidth
                 variant="filled"
-                color={!isOpen ? "gray" : restaurant.minimumOrder === 0 ? "green" : "pink"}
+                color={!isOpen ? "gray" : restaurant.minimumOrder === 0 ? "green" : "orange"}
               >
                 <Flex w={"100%"} gap={5} align={"center"}>
                   <IconCoins />

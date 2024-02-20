@@ -20,7 +20,7 @@ const SwitchRestaurantModal = () => {
         <Container px={25} w={"100%"}>
           <Text>
             Your already have items from{" "}
-            <Text color="pink" span fw={700}>
+            <Text color="orange" span fw={700}>
               {cart?.header.restaurantName}
             </Text>{" "}
             restaurant. This action will discard your current cart

@@ -1,4 +1,4 @@
-import { Button, Flex } from "@mantine/core";
+import { Button, Flex, Text } from "@mantine/core";
 
 import { useUI } from "../contexts/UIContext";
 
@@ -8,7 +8,7 @@ export function NavbarUserNotAuthenticated() {
   return (
     <Flex gap={10}>
       <Button variant="subtle" className="text" onClick={() => setShowModal("signin")}>
-        Sign in
+        <Text color="white">Sign in</Text>
       </Button>
 
       <Button className="text" onClick={() => setShowModal("signup")}>

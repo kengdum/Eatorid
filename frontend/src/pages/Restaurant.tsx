@@ -94,7 +94,7 @@ const Restaurant = () => {
                   <Badge
                     py={14}
                     variant="filled"
-                    color={!isOpen ? "gray" : data.restaurant.deliveryPrice === 0 ? "green" : "pink"}
+                    color={!isOpen ? "gray" : data.restaurant.deliveryPrice === 0 ? "green" : "orange"}
                   >
                     <Flex w={"100%"} gap={5} align={"center"}>
                       <IconMotorbike />
@@ -107,7 +107,7 @@ const Restaurant = () => {
                   <Badge
                     py={14}
                     variant="filled"
-                    color={!isOpen ? "gray" : data.restaurant.minimumOrder === 0 ? "green" : "pink"}
+                    color={!isOpen ? "gray" : data.restaurant.minimumOrder === 0 ? "green" : "orange"}
                   >
                     <Flex w={"100%"} gap={5} align={"center"}>
                       <IconCoins />
@@ -117,7 +117,7 @@ const Restaurant = () => {
                 </Tooltip>
 
                 <Tooltip label="Delivery maximum distance">
-                  <Badge color={!isOpen ? "gray" : "pink"} py={14} variant="filled">
+                  <Badge color={!isOpen ? "gray" : "orange"} py={14} variant="filled">
                     <Flex w={"100%"} gap={5} align={"center"}>
                       <IconRoad />
                       {data.restaurant.deliveryMaxDistance} KM
@@ -126,7 +126,7 @@ const Restaurant = () => {
                 </Tooltip>
 
                 <Tooltip label="Extra delivery fee">
-                  <Badge color={!isOpen ? "gray" : "pink"} py={14} variant="filled">
+                  <Badge color={!isOpen ? "gray" : "orange"} py={14} variant="filled">
                     <Flex w={"100%"} gap={5} align={"center"}>
                       <IconMapPinPlus />
                       {data.restaurant.extraDeliveryFee} RON / KM
@@ -138,7 +138,7 @@ const Restaurant = () => {
           </div>
 
           <Stack>
-            <Title>Schedule</Title>
+            <Title color="black">Schedule</Title>
 
             <div className="schedule-container">
               {daysOfWeek.map((day, index) => (
@@ -161,7 +161,7 @@ const Restaurant = () => {
           </Stack>
 
           <Stack>
-            <Title>Menu</Title>
+            <Title color="black">Menu</Title>
             <Grid gutter={30}>
               {data.menu.map((item: IMenu) => (
                 <Grid.Col key={item._id} xs={6} sm={4} md={4} lg={3}>

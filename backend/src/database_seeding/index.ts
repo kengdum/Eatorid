@@ -136,9 +136,9 @@ const generateRestaurants = async () => {
       Math.random() < 0.2
         ? { opening: null, closing: null }
         : {
-            opening: `${openingHours[Math.floor(Math.random() * openingHours.length)]}:00`,
-            closing: `${closingHours[Math.floor(Math.random() * closingHours.length)]}:00`,
-          }
+          opening: `${openingHours[Math.floor(Math.random() * openingHours.length)]}:00`,
+          closing: `${closingHours[Math.floor(Math.random() * closingHours.length)]}:00`,
+        }
     ),
     minimumOrder: minimumOrderPrices[Math.floor(Math.random() * minimumOrderPrices.length)],
     deliveryMaxDistance: deliveryMaxDistances[Math.floor(Math.random() * deliveryMaxDistances.length)],
@@ -169,9 +169,9 @@ const generateMenu = async (restaurant: any) => {
 
 export const seedDatabase = async () => {
   try {
-    // await mongoose.connection.db.dropCollection("restaurants");
-    // await mongoose.connection.db.dropCollection("menus");
-    // await mongoose.connection.db.dropCollection("orders");
+    await mongoose.connection.db.dropCollection("restaurants");
+    await mongoose.connection.db.dropCollection("menus");
+    await mongoose.connection.db.dropCollection("orders");
 
     if (process.env.NODE_ENV === "production") return;
 
@@ -182,6 +182,9 @@ export const seedDatabase = async () => {
     const restaurantIds = await generateRestaurants();
 
     await Promise.all(restaurantIds.map(x => generateMenu(x)));
+
+    console.log(restaurantIds);
+
   } catch (err) {
     console.log("Something went wrong");
     console.log(err);

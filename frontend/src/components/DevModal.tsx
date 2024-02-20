@@ -57,7 +57,7 @@ const DevModal = () => {
     <Container p={0}>
       <Container p={25}>
         <Flex align={"center"} justify={"space-between"}>
-          <Title>Dev</Title>
+          <Title color="white">Dev</Title>
           <CloseButton title="Close sign in" size={"lg"} onClick={() => setShowModal("null")} />
         </Flex>
       </Container>

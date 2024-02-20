@@ -26,7 +26,7 @@ const MenuCard = ({ isOpen, restaurant, menu }: MenuCardProps) => {
         </Stack>
 
         <Flex mt="md" align={"center"} justify={"space-between"}>
-          <Text fw="700" color="pink">
+          <Text fw="700" color="orange">
             {menu.price} RON
           </Text>
 
@@ -35,7 +35,7 @@ const MenuCard = ({ isOpen, restaurant, menu }: MenuCardProps) => {
               {cartItem && (
                 <>
                   <ActionIcon
-                    color="pink"
+                    color="orange"
                     size="md"
                     radius="xl"
                     variant="filled"
@@ -49,7 +49,7 @@ const MenuCard = ({ isOpen, restaurant, menu }: MenuCardProps) => {
               )}
 
               <ActionIcon
-                color="pink"
+                color="orange"
                 size="md"
                 radius="xl"
                 variant="filled"

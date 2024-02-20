@@ -9,7 +9,7 @@ const HomeFeaturesSection = () => {
         <Grid.Col sm={6} lg={4}>
           <Center h={"100%"}>
             <Stack spacing={30}>
-              <Text fz={18}>
+              <Text fz={18} color="black">
                 Delicious meals delivered to your doorstep. Order from a wide selection of restaurants and enjoy
                 convenient and hassle-free food delivery.
               </Text>
@@ -19,22 +19,28 @@ const HomeFeaturesSection = () => {
                 size="md"
                 icon={
                   <ThemeIcon size={20} radius="xl">
-                    <IconCheck stroke={1.5} />
+                    <IconCheck stroke={2.5} />
                   </ThemeIcon>
                 }
               >
                 <List.Item>
-                  <b>Extensive restaurant selection</b> – Access a vast array of restaurants offering a diverse range of
-                  cuisines, ensuring there's something to satisfy every craving.
+                  <Text color="black">
+                    <b>Extensive restaurant selection</b> – Access a vast array of restaurants offering a diverse range of
+                    cuisines, ensuring there's something to satisfy every craving.
+                  </Text>
                 </List.Item>
                 <List.Item>
-                  <b>User-friendly ordering process</b> – Enjoy a seamless and intuitive ordering experience, allowing
-                  you to effortlessly browse menus, customize your meals, and complete transactions with just a few
-                  taps.
+                  <Text color="black">
+                    <b>User-friendly ordering process</b> – Enjoy a seamless and intuitive ordering experience, allowing
+                    you to effortlessly browse menus, customize your meals, and complete transactions with just a few
+                    taps.
+                  </Text>
                 </List.Item>
                 <List.Item>
-                  <b>Real-time order tracking</b> – Stay updated on the status of your delivery with live order
-                  tracking. From preparation to delivery, know exactly when your food will arrive at your doorstep.
+                  <Text color="black">
+                    <b>Real-time order tracking</b> – Stay updated on the status of your delivery with live order
+                    tracking. From preparation to delivery, know exactly when your food will arrive at your doorstep.
+                  </Text>
                 </List.Item>
               </List>
             </Stack>

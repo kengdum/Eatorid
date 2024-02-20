@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.seedDatabase = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
 const Restaurant_1 = __importDefault(require("../models/Restaurant"));
 const Menu_1 = __importDefault(require("../models/Menu"));
 const restaurantNames = [
@@ -174,9 +175,9 @@ const generateMenu = (restaurant) => __awaiter(void 0, void 0, void 0, function*
 });
 const seedDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // await mongoose.connection.db.dropCollection("restaurants");
-        // await mongoose.connection.db.dropCollection("menus");
-        // await mongoose.connection.db.dropCollection("orders");
+        yield mongoose_1.default.connection.db.dropCollection("restaurants");
+        yield mongoose_1.default.connection.db.dropCollection("menus");
+        yield mongoose_1.default.connection.db.dropCollection("orders");
         if (process.env.NODE_ENV === "production")
             return;
         const count = yield Restaurant_1.default.countDocuments({});
@@ -184,6 +185,7 @@ const seedDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
             return;
         const restaurantIds = yield generateRestaurants();
         yield Promise.all(restaurantIds.map(x => generateMenu(x)));
+        console.log(restaurantIds);
     }
     catch (err) {
         console.log("Something went wrong");

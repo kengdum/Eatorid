@@ -23,7 +23,7 @@ export function Layout() {
         </Header>
       }
       styles={theme => ({
-        main: { backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.colors.gray[0] },
+        main: { backgroundColor: theme.colorScheme === "dark" ? theme.colors.orange[1] : theme.colors.gray[3] },
       })}
     >
       <Container h={"100%"} size={"100%"} px={"5%"} style={{ backgroundColor: "transparent" }}>

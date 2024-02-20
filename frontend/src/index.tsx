@@ -12,7 +12,7 @@ import { CartProvider } from "./contexts/CartContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 const queryClient = new QueryClient();
-
+document.title = "Eatorid";
 console.log("babajee");
 
 root.render(
@@ -26,14 +26,14 @@ root.render(
               brand: [
                 "#fff0f6",
                 "#ffdeeb",
-                "#fcc2d7",
+                "#744F0F",
                 "#faa2c1",
-                "#f783ac",
-                "#f06595",
-                "#e64980",
-                "#d6336c",
-                "#c2255c",
-                "#a61e4d",
+                "#F5E398",
+                "#1A1B1E",
+                "#EB6B03",
+                "#FAB42C",
+                "#DB542E",
+                "#CBA06F",
               ],
             },
             primaryColor: "brand",

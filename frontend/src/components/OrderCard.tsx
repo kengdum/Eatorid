@@ -23,7 +23,7 @@ const OrderCard = ({ order }: MenuCardProps) => {
                   <Text size="xs">{new Date(order.createdAt).toLocaleDateString()}</Text>
                   <Text fw={700} size="xl">
                     {order.restaurantName} -{" "}
-                    <Text span color="pink">
+                    <Text span color="orange">
                       {totalItems} items
                     </Text>
                   </Text>
@@ -62,8 +62,8 @@ const OrderCard = ({ order }: MenuCardProps) => {
                         statuses.indexOf(order.status) > 1
                           ? "Your order is prepared"
                           : statuses.indexOf(order.status) === 1
-                          ? "Order is being prepared"
-                          : "Not started"
+                            ? "Order is being prepared"
+                            : "Not started"
                       }
                     ></Stepper.Step>
 
@@ -74,8 +74,8 @@ const OrderCard = ({ order }: MenuCardProps) => {
                         statuses.indexOf(order.status) > 2
                           ? "Delivered"
                           : statuses.indexOf(order.status) === 2
-                          ? "Delivering in progress"
-                          : "Not started"
+                            ? "Delivering in progress"
+                            : "Not started"
                       }
                     ></Stepper.Step>
 
@@ -85,8 +85,8 @@ const OrderCard = ({ order }: MenuCardProps) => {
                         statuses.indexOf(order.status) > 3
                           ? "Nice"
                           : statuses.indexOf(order.status) === 3
-                          ? "Delivering in progress"
-                          : "Almost there"
+                            ? "Delivering in progress"
+                            : "Almost there"
                       }
                     ></Stepper.Step>
                   </Stepper>
@@ -118,7 +118,7 @@ const OrderCard = ({ order }: MenuCardProps) => {
                     <Card style={{ backgroundColor: "#303138" }} key={item._id} mb={2}>
                       <Flex gap="lg" align={"center"} justify={"space-between"}>
                         <Flex gap="sm" align="center">
-                          <Text size="sm" color="pink" fw="900">
+                          <Text size="sm" color="orange" fw="900">
                             {item.quantity}x
                           </Text>
                           <Text size="sm" fw="700">

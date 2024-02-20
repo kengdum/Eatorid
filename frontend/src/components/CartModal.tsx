@@ -92,7 +92,7 @@ const CartModal = () => {
     <Container p={20}>
       <Container mb={20}>
         <Flex align={"center"} justify={"space-between"}>
-          <Title>Cart</Title>
+          <Title color="white">Cart</Title>
           <CloseButton disabled={isLoading} title="Close sign in" size={"lg"} onClick={handleClose} />
         </Flex>
       </Container>
@@ -101,7 +101,7 @@ const CartModal = () => {
         <Card>
           <Stack spacing={0}>
             <Text ta="center" size={50}>
-              😵
+              😭
             </Text>
             <Text ta="center">Cart is empty</Text>
           </Stack>
@@ -118,7 +118,7 @@ const CartModal = () => {
                 <Card key={x.menuId} mb={5}>
                   <Flex gap="lg" align={"center"} justify={"space-between"}>
                     <Flex gap="sm" align="center">
-                      <Text size="sm" color="pink" fw="900">
+                      <Text size="sm" color="orange" fw="900">
                         {x.quantity}x
                       </Text>
                       <Text size="sm" fw="700">
@@ -129,7 +129,7 @@ const CartModal = () => {
                     <Flex gap="sm" align={"center"}>
                       <Text size="sm">{x.price} RON</Text>
                       <ActionIcon
-                        color="pink"
+                        color="orange"
                         size="md"
                         radius="xl"
                         variant="filled"

@@ -20,7 +20,7 @@ const HomeRestaurantsSection = () => {
     <Stack mb={50}>
       <Flex align={"center"} justify={"space-between"}>
         <Flex align={"center"} gap="lg">
-          <Title>Restaurants</Title>
+          <Title color="black">Restaurants</Title>
           {status === "loading" && <Loader />}
         </Flex>
         <Button component={Link} to="/restaurants" variant="subtle">

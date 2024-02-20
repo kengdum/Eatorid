@@ -35,7 +35,7 @@ const Orders = () => {
 
   return (
     <Stack>
-      <Title>My orders</Title>
+      <Title color="black">My orders</Title>
 
       {status === "loading" ? (
         <Center>
@@ -45,7 +45,7 @@ const Orders = () => {
         <Center>
           <Stack>
             <Text ta="center" fz={48}>
-              💩
+              😭
             </Text>
             <Text ta="center" color="dimmed">
               Could not load the data

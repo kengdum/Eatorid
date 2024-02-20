@@ -12,19 +12,19 @@ export function NavbarUserAuthenticated() {
 
   const totalItems = cart?.items.reduce((acc, item) => item.quantity + acc, 0);
 
-  const doomed: React.MouseEventHandler<HTMLAnchorElement> = e => {
+  const doomed: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault();
     window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
   };
 
-  const hadleCartClick = () => {
+  const handleCartClick = () => {
     setOrderPlaced(false);
     setShowModal("cart");
   };
 
   return (
     <Flex gap="md">
-      <ActionIcon size="xl" radius="xl" variant="filled" color="pink" onClick={() => setShowModal("dev")}>
+      <ActionIcon size="xl" radius="xl" variant="filled" color="orange" onClick={() => setShowModal("dev")}>
         <IconCodeCircle />
       </ActionIcon>
 
@@ -54,14 +54,17 @@ export function NavbarUserAuthenticated() {
 
           <Menu.Divider />
 
-          <Menu.Item icon={<IconLogout size={20} style={{ transform: "rotate(180deg)" }} />} onClick={logout}>
+          <Menu.Item
+            icon={<IconLogout size={20} style={{ transform: "rotate(180deg)" }} />}
+            onClick={logout}
+          >
             Logout
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
 
       <Indicator inline offset={7} position="bottom-end" disabled={!cart} withBorder label={totalItems} size={26}>
-        <ActionIcon size={"xl"} radius="xl" variant="outline" onClick={hadleCartClick}>
+        <ActionIcon size={"xl"} radius="xl" variant="outline" onClick={handleCartClick}>
           <IconShoppingCart />
         </ActionIcon>
       </Indicator>
