@@ -1,4 +1,5 @@
-# eat-or-yeet
+# Eatorid
+
 
 Deployed [here on Render](https://eat-or-yeet.onrender.com) (it might take a while to load since I'm using the free version 💩)
 
